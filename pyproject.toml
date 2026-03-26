@@ -7,7 +7,8 @@ name = "decision-explorer-data-centers" # Package distribution name (lowercase a
 description = "Structured exploration of data center siting and governance tradeoffs."
 readme = "README.md"
 requires-python = ">=3.14"
-dynamic = ["version"]  # Using setuptools_scm
+version = "0.1.0"
+# dynamic = ["version"]  # Using setuptools_scm
 license = { text = "MIT" }
 authors = [
   { name = "Denise Case" }

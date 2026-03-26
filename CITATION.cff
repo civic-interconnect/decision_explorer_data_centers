@@ -25,25 +25,21 @@ url: "https://github.com/civic-interconnect/decision_explorer_data_centers"
 license: MIT
 
 abstract: |
-  Decision Explorer - Data Centers.
+  A structured framework for exploring data center siting and governance
+  tradeoffs under explicit, configurable assumptions and constraints.
+  Designed to make the distribution of costs, benefits, and risks visible
+  and inspectable across infrastructure, water, grid, and land-use dimensions.
 
 keywords:
-  # identity
-  - data analytics
-  - continuous intelligence
-
-  # practices
-  - professional workflows
-  - reproducible workflows
-  - software quality
-
-  # tools and ecosystem
+  - data centers
+  - infrastructure governance
+  - siting analysis
+  - decision support
   - python
-  - git
-  - github
-  - pre-commit
   - uv
   - ruff
   - zensical
+  - reproducible workflows
+  - civic technology
 
 message: "If using this project, please cite it as described in this file."

@@ -41,20 +41,14 @@ Working files are found in these areas:
 - **data/** - source inputs and scenario configuration
 - **docs/** - narrative, assumptions, and analysis
 - **src/** - implementation
-- **pyproject.toml** - project configuration
-- **zensical.toml** - documentation configuration
 
-## Slice 1: Minimal Vertical Path
+## Current Capabilities
 
-One runnable path that:
-
-- logs run phases
-- loads a scenario (e.g., Minnesota example)
-- evaluates a small fixed set of factors
-- returns a structured result (Approve / Conditional / Reject)
-- logs the reasoning
-
-No generalization yet.
+- Loads candidate sites from CSV and policy constraints from TOML
+- Evaluates hard-constraint admissibility for each site (PASS / FAIL)
+- Evaluates scenario-level decisions (APPROVE / CONDITIONAL / REJECT)
+- Exports results as JSON for the web Explorer
+- Interactive web Explorer for non-technical users
 
 ## Command Reference
 
