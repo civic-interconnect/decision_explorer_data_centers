@@ -1,11 +1,14 @@
-# decision_explorer_data_centers
+# Decision Explorer: Data Centers
 
+[![Explorer](https://img.shields.io/badge/explorer-live-brightgreen)](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://civic-interconnect.github.io/decision_explorer_data_centers/)
 [![CI Status](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/ci-python-zensical.yml/badge.svg?branch=main)](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/ci-python-zensical.yml)
 [![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](#)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
 
 > Putting Data Centers in Context: Promise, Burden, and the Case for Sound Governance
+
+**[Try the Interactive Explorer](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)**
 
 NOTE: March 2026. You may see unrelated Copilot warnings in VS Code due to a known Microsoft issue.
 These can be ignored.
