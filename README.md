@@ -9,6 +9,9 @@
 > Putting Data Centers in Context: Promise, Burden, and the Case for Sound Governance
 
 **[Try the Interactive Explorer](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)**
+To accept the example data and see the results, click the green "Evaluate" button in the lower right-hand corner of either:
+- The Example Sites data (CSV)
+- The Example Policies data (TOML)   
 
 NOTE: March 2026. You may see unrelated Copilot warnings in VS Code due to a known Microsoft issue.
 These can be ignored.
