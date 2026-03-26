@@ -1,0 +1,14 @@
+[site]
+preferred_zoning = ["industrial"]
+minimum_distance_to_residential_m = 500.0
+require_drought_sustainable = true
+reject_water_stressed_basin = true
+
+[operations]
+require_demand_response_capable = true
+require_continuous_noise_monitoring = true
+
+[infrastructure]
+maximum_interconnection_years = 5.0
+require_operator_pays_grid_upgrades = true
+reject_major_new_transmission = true

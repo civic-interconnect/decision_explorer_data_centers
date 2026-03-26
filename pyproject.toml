@@ -1,0 +1,122 @@
+# ============================================================
+# pyproject.toml (Python project configuration)
+# ============================================================
+
+[project]
+name = "decision-explorer-data-centers" # Package distribution name (lowercase and dashes).
+description = "Structured exploration of data center siting and governance tradeoffs."
+readme = "README.md"
+requires-python = ">=3.14"
+dynamic = ["version"]  # Using setuptools_scm
+license = { text = "MIT" }
+authors = [
+  { name = "Denise Case" }
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Education",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Typing :: Typed",
+]
+keywords = [
+  "civic", "US", "data centers", "siting", "governance", "tradeoffs", "exploration", "policy", "decision support"
+]
+dependencies = ["datafun-toolkit"]
+
+[project.optional-dependencies]
+dev = [
+    "packaging",
+    "pre-commit",
+    "ruff",
+    "validate-pyproject",
+]
+docs = [
+    "mkdocstrings[python]",
+    "zensical",
+]
+
+[project.scripts]
+decision-explorer-data-centers = "decision_explorer_data_centers.cli:main"
+
+# === RUFF (PYTHON FORMATTING AND LINTING) ===
+
+[tool.ruff]
+# WHY: Ruff provides fast linting and formatting with deterministic output.
+exclude = [
+    ".eggs",
+    "*.egg-info",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "site",
+]
+line-length = 88 # WHY: PEP 8 standard line length, wrap when possible.
+preview = false # WHY: Stable features only; avoid preview features.
+target-version = "py313" # WHY: Match latest supported Python version.
+unsafe-fixes = false # WHY: Avoid potentially unsafe automatic fixes.
+
+[tool.ruff.format]
+# WHY: Formatter choices should be stable to keep diffs small and predictable.
+indent-style = "space" # See also .gitattributes for indent style.
+line-ending = "auto" # Match existing files and let .gitattributes handle it.
+quote-style = "preserve" # Preserve existing quote styles to minimize churn.
+
+[tool.ruff.lint]
+# WHY: Professional baseline rules without requiring advanced refactors.
+select = [
+    "E",   # Basic syntax and structural correctness
+    "F",   # Undefined names and unused imports
+    "W",   # Warnings that catch easy issues early
+    "I",   # Deterministic import ordering
+    "UP",  # Modern Python constructs
+    "B",   # Common bug patterns
+    "PTH", # Prefer pathlib patterns
+]
+ignore = [
+  "E501", # Final line length handled by formatter
+]
+
+[tool.ruff.lint.isort]
+# WHY: Ordering imports helps keep code diffs (differences) readable.
+force-sort-within-sections = false # WHY: Avoid unnecessary churn by only sorting within sections.
+
+# === PER-FILE IGNORES (DEPENDS ON DOCSTRING POLICY) ===
+
+[tool.ruff.lint.per-file-ignores]
+# WHY: Some files MUST NOT undergo linting or automated fixes.
+
+# POLICY: Docstring rules are NOT enabled (no "D" in [tool.ruff.lint].select).
+"src/**/__init__.py" = ["F401"]     # Allow re-export patterns
+"src/**/_version.py" = ["ALL"]      # Auto-generated file (do not lint)
+"notebooks/**/*.ipynb" = ["F821"]   # Notebooks may have runtime-defined names
+
+# === CHOOSE PROJECT DOC STYLE ===
+
+[tool.ruff.lint.pydocstyle]
+# WHY: Choose one docstring convention project-wide to avoid mixed styles and churn.
+# REQ: Google style is the default policy for this repository.
+convention = "google" # ALT: "numpy" (choose one convention project-wide)
+
+# === BUILD SYSTEM ===
+
+[build-system]
+# REQ.BUILD: A build backend MUST be declared to enable package discovery.
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=80.9.0"]
+
+[tool.setuptools]
+# REQ.PACKAGES: Package discovery MUST be rooted at src/.
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+# WHY: Explicitly define package discovery location.
+where = ["src"]
