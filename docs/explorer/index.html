@@ -326,7 +326,6 @@ async function fetchFromUrl(type) {
 function loadDefaults() {
   setData('csv', DEFAULT_CSV);
   setData('toml', DEFAULT_TOML);
-  switchTab('edit');
 }
 
 // ── CSV parsing ────────────────────────────────────────────────────
@@ -596,6 +595,7 @@ function selectSite(id) {
 
 // ── Init ───────────────────────────────────────────────────────────
 loadDefaults();
+switchTab('results');
 </script>
 </body>
 </html>
