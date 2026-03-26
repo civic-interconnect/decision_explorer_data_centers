@@ -11,7 +11,11 @@
 **[Try the Interactive Explorer](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)**
 To accept the example data and see the results, click the green "Evaluate" button in the lower right-hand corner of either:
 - The Example Sites data (CSV)
-- The Example Policies data (TOML)   
+- The Example Policies data (TOML)
+
+![Edit Data](./docs/images/edit-data.png)
+
+![Edit Data](./docs/images/view-results.png)
 
 NOTE: March 2026. You may see unrelated Copilot warnings in VS Code due to a known Microsoft issue.
 These can be ignored.
