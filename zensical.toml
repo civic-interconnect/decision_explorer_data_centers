@@ -6,11 +6,11 @@
 # It is used in this project to streamline documentation and provide better support for docstring generation.
 
 [project]
-site_name = "Continuous Intelligence"
+site_name = "Explorer: Data Centers"
 site_url = "https://civic-interconnect.github.io/decision_explorer_data_centers/"
 repo_url = "https://github.com/civic-interconnect/decision_explorer_data_centers"
 repo_name = "civic-interconnect/decision_explorer_data_centers"
-site_description = "Continuous Intelligence project documentation"
+site_description = "Project documentation"
 docs_dir = "docs" # source directory for documentation markdown files
 site_dir = "site" # output directory for generated site (ignored by Git; not in repo)
 edit_uri = "edit/main/docs/" # "Edit this page" links (GitHub)
