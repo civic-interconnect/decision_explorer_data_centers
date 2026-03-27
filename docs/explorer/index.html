@@ -1,146 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Decision Explorer: Data Centers</title>
-<meta name="description" content="Interactive decision explorer for evaluating data center site suitability and governance tradeoffs.">
-<meta name="theme-color" content="#0b3d2e">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
-<link rel="apple-touch-icon" href="images/favicon_io/apple-touch-icon.png">
-<link rel="manifest" href="images/favicon_io/site.webmanifest">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decision Explorer: Data Centers</title>
+  <meta name="description"
+    content="Interactive decision explorer for evaluating data center site suitability and governance tradeoffs.">
+  <meta name="theme-color" content="#0b3d2e">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="images/favicon_io/apple-touch-icon.png">
+  <link rel="manifest" href="images/favicon_io/site.webmanifest">
 </head>
+
 <body>
 
-<header>
-  <div class="logo">Decision Explorer <span>/</span> Data Center Suitability</div>
-  <div class="header-status" id="hdr-status">no data loaded</div>
-</header>
+  <header>
+    <div class="logo">Decision Explorer <span>/</span> Data Center Suitability</div>
+    <div class="header-status" id="hdr-status">no data loaded</div>
+  </header>
 
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('load')">Tab 1: Load</div>
-  <div class="tab" onclick="switchTab('edit')">Tab 2: Edit</div>
-  <div class="tab" onclick="switchTab('results')">Tab 3: Results</div>
-</div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('load')">Load Files</div>
+    <div class="tab" onclick="switchTab('edit-p')">Edit Policy</div>
+    <div class="tab" onclick="switchTab('edit-s')">Edit Candidate Sites</div>
+    <div class="tab" onclick="switchTab('results')">View Results</div>
+  </div>
 
-<!-- LOAD PAGE -->
-<div id="page-load" class="page active">
-  <div class="grid-2">
-    <div>
-      <div class="card section-gap">
-        <div class="card-head"><span class="card-title">Sites CSV</span><span id="csv-status-badge"></span></div>
-        <div class="card-body">
-          <div class="load-section">
-            <h3>Upload file</h3>
-            <div class="drop-zone" id="csv-drop" onclick="document.getElementById('csv-file').click()" ondragover="doDragOver(event,'csv-drop')" ondragleave="doDragLeave('csv-drop')" ondrop="doDrop(event,'csv')">
-              <input type="file" id="csv-file" accept=".csv" onchange="handleFileUpload(event,'csv')">
-              <div class="drop-label">Drop file here or <strong>browse</strong></div>
-              <div class="drop-badge">.csv</div>
-            </div>
+  <!-- LOAD PAGE -->
+  <div id="page-load" class="page active">
+    <div class="grid-2">
+      <div>
+        <div class="card section-gap">
+          <div class="card-head"><span class="card-title">Load Policy (TOML)</span><span id="toml-status-badge"></span>
           </div>
-          <div class="load-section">
-            <h3>Load from GitHub raw URL</h3>
-            <div class="url-row">
-              <input type="text" id="csv-url" placeholder="https://raw.githubusercontent.com/…/sites.csv">
-              <button class="btn btn-sm" onclick="fetchFromUrl('csv')">Fetch</button>
+          <div class="card-body">
+            <div class="load-section">
+              <h3>Upload file</h3>
+              <div class="drop-zone" id="toml-drop" onclick="document.getElementById('toml-file').click()"
+                ondragover="doDragOver(event,'toml-drop')" ondragleave="doDragLeave('toml-drop')"
+                ondrop="doDrop(event,'toml')">
+                <input type="file" id="toml-file" accept=".toml,.txt" onchange="handleFileUpload(event,'toml')">
+                <div class="drop-label">Drop file here or <strong>browse</strong></div>
+                <div class="drop-badge">.toml</div>
+              </div>
             </div>
+            <div class="load-section">
+              <h3>Load from GitHub raw URL</h3>
+              <div class="url-row">
+                <input type="text" id="toml-url" placeholder="https://raw.githubusercontent.com/…/policy.toml">
+                <button class="btn btn-sm" onclick="fetchFromUrl('toml')">Fetch</button>
+              </div>
+            </div>
+            <div id="toml-msg"></div>
           </div>
-          <div id="csv-msg"></div>
         </div>
       </div>
+      <div>
+        <div class="card section-gap">
+          <div class="card-head"><span class="card-title">Load Sites (CSV)</span><span id="csv-status-badge"></span>
+          </div>
+          <div class="card-body">
+            <div class="load-section">
+              <h3>Upload file</h3>
+              <div class="drop-zone" id="csv-drop" onclick="document.getElementById('csv-file').click()"
+                ondragover="doDragOver(event,'csv-drop')" ondragleave="doDragLeave('csv-drop')"
+                ondrop="doDrop(event,'csv')">
+                <input type="file" id="csv-file" accept=".csv" onchange="handleFileUpload(event,'csv')">
+                <div class="drop-label">Drop file here or <strong>browse</strong></div>
+                <div class="drop-badge">.csv</div>
+              </div>
+            </div>
+            <div class="load-section">
+              <h3>Load from GitHub raw URL</h3>
+              <div class="url-row">
+                <input type="text" id="csv-url" placeholder="https://raw.githubusercontent.com/…/sites.csv">
+                <button class="btn btn-sm" onclick="fetchFromUrl('csv')">Fetch</button>
+              </div>
+            </div>
+            <div id="csv-msg"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div>
-      <div class="card section-gap">
-        <div class="card-head"><span class="card-title">Policy TOML</span><span id="toml-status-badge"></span></div>
-        <div class="card-body">
-          <div class="load-section">
-            <h3>Upload file</h3>
-            <div class="drop-zone" id="toml-drop" onclick="document.getElementById('toml-file').click()" ondragover="doDragOver(event,'toml-drop')" ondragleave="doDragLeave('toml-drop')" ondrop="doDrop(event,'toml')">
-              <input type="file" id="toml-file" accept=".toml,.txt" onchange="handleFileUpload(event,'toml')">
-              <div class="drop-label">Drop file here or <strong>browse</strong></div>
-              <div class="drop-badge">.toml</div>
-            </div>
-          </div>
-          <div class="load-section">
-            <h3>Load from GitHub raw URL</h3>
-            <div class="url-row">
-              <input type="text" id="toml-url" placeholder="https://raw.githubusercontent.com/…/policy.toml">
-              <button class="btn btn-sm" onclick="fetchFromUrl('toml')">Fetch</button>
-            </div>
-          </div>
-          <div id="toml-msg"></div>
+    <div style="display:flex;gap:.75rem;align-items:center">
+      <button class="btn btn-accent" onclick="loadDefaults()">Load example data</button>
+      <span style="font-size:12px;color:var(--text-faint);font-family:var(--mono)">or load your own files above then go
+        to Edit → Results</span>
+    </div>
+  </div>
+
+  <!-- EDIT POLICY PAGE -->
+  <div id="page-edit-p" class="page">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Policy (TOML)</span>
+      </div>
+      <div class="card-body">
+        <div id="toml-parse-err"></div>
+        <div class="editor-wrap">
+          <textarea class="editor" id="toml-editor" spellcheck="false" oninput="onEditorChange('toml')"></textarea>
+        </div>
+        <div class="editor-actions">
+          <button class="btn btn-sm" onclick="downloadFile('toml')">
+            ↓ Download TOML
+          </button>
+          <button class="btn btn-sm btn-accent" onclick="runAndGoResults()">
+            Evaluate →
+          </button>
         </div>
       </div>
     </div>
   </div>
-  <div style="display:flex;gap:.75rem;align-items:center">
-    <button class="btn btn-accent" onclick="loadDefaults()">Load example data</button>
-    <span style="font-size:12px;color:var(--text-faint);font-family:var(--mono)">or load your own files above then go to Edit → Results</span>
-  </div>
-</div>
 
-<!-- EDIT PAGE -->
-<div id="page-edit" class="page">
-  <div class="grid-2">
-    <div>
-      <div class="card">
-        <div class="card-head">
-          <span class="card-title">Sites — CSV</span>
-          <div style="display:flex;gap:.5rem;align-items:center">
-            <span style="font-family:var(--mono);font-size:10px;color:var(--text-faint)" id="csv-rows-label"></span>
-            <button class="btn btn-sm" onclick="addCsvRow()">+ row</button>
+  <!-- EDIT CANDIDATE SITES PAGE -->
+  <div id="page-edit-s" class="page">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">Candidate Sites (CSV)</span>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <span style="font-family:var(--mono);font-size:10px;color:var(--text-faint)" id="csv-rows-label"></span>
+          <button class="btn btn-sm" onclick="addCsvRow()">+ row</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="csv-parse-err"></div>
+
+        <div class="card section-gap" style="margin-bottom:1rem">
+          <div class="card-head">
+            <span class="card-title">Selected Site Helper</span>
+            <div style="display:flex;gap:.5rem;align-items:center">
+              <button class="btn btn-sm" type="button" onclick="selectPrevCsvRow()">← Prev</button>
+              <button class="btn btn-sm" type="button" onclick="selectNextCsvRow()">Next →</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="margin-bottom:.75rem">
+              <label
+                style="display:block;font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-bottom:.35rem">
+                Site row
+              </label>
+              <select id="csv-row-select" onchange="onCsvRowSelectChange()"
+                style="width:100%;font-family:var(--mono);font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:#fafaf8">
+              </select>
+            </div>
+
+            <div id="csv-row-form" class="form-grid"></div>
           </div>
         </div>
-        <div class="card-body">
-          <div id="csv-parse-err"></div>
-          <div class="editor-wrap">
-            <textarea class="editor" id="csv-editor" spellcheck="false" oninput="onEditorChange('csv')"></textarea>
+
+        <div class="editor-wrap">
+          <div class="editor-readonly-note" id="csv-readonly-note">
+            Raw CSV is shown for transparency. Use the site helper above to edit safely.
           </div>
-          <div class="editor-actions">
-            <button class="btn btn-sm" onclick="downloadFile('csv')">↓ Download CSV</button>
-            <button class="btn btn-sm btn-accent" onclick="runAndGoResults()">Evaluate →</button>
-          </div>
+          <textarea class="editor editor-ghosted" id="csv-editor" spellcheck="false" oninput="onEditorChange('csv')"
+            readonly></textarea>
+        </div>
+
+        <div class="editor-actions">
+          <button class="btn btn-sm" type="button" onclick="toggleRawCsvEdit()" id="csv-toggle-btn">
+            Unlock Raw CSV
+          </button>
+          <button class="btn btn-sm" onclick="downloadFile('csv')">
+            ↓ Download CSV
+          </button>
+          <button class="btn btn-sm btn-accent" onclick="runAndGoResults()">
+            Evaluate →
+          </button>
         </div>
       </div>
     </div>
-    <div>
-      <div class="card">
-        <div class="card-head">
-          <span class="card-title">Policy — TOML</span>
-        </div>
-        <div class="card-body">
-          <div id="toml-parse-err"></div>
-          <div class="editor-wrap">
-            <textarea class="editor" id="toml-editor" spellcheck="false" oninput="onEditorChange('toml')"></textarea>
-          </div>
-          <div class="editor-actions">
-            <button class="btn btn-sm" onclick="downloadFile('toml')">↓ Download TOML</button>
-            <button class="btn btn-sm btn-accent" onclick="runAndGoResults()">Evaluate →</button>
-          </div>
-        </div>
-      </div>
+  </div>
+
+  <!-- RESULTS PAGE -->
+  <div id="page-results" class="page">
+    <div id="results-content">
+      <p style="color:var(--text-faint);font-family:var(--mono);font-size:12px">Load data first, then run evaluation.
+      </p>
     </div>
   </div>
-</div>
 
-<!-- RESULTS PAGE -->
-<div id="page-results" class="page">
-  <div id="results-content"><p style="color:var(--text-faint);font-family:var(--mono);font-size:12px">Load data first, then run evaluation.</p></div>
-</div>
-
-<script src="state.js"></script>
-<script src="data-csv.js"></script>
-<script src="data-toml.js"></script>
-<script src="evaluator.js"></script>
-<script src="ui-tabs.js"></script>
-<script src="ui-load.js"></script>
-<script src="ui-editors.js"></script>
-<script src="ui-results.js"></script>
-<script src="app.js"></script>
+  <script src="state.js"></script>
+  <script src="data-csv.js"></script>
+  <script src="data-toml.js"></script>
+  <script src="evaluator.js"></script>
+  <script src="ui-tabs.js"></script>
+  <script src="ui-load.js"></script>
+  <script src="ui-editors.js"></script>
+  <script src="ui-results.js"></script>
+  <script src="app.js"></script>
 
 </body>
+
 </html>

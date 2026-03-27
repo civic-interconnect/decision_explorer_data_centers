@@ -2,6 +2,7 @@
 
 let state = { csv: '', toml: '' };
 let selectedSite = null;
+let selectedCsvRowIndex = 0;
 
 
 // export const state = {

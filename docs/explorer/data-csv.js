@@ -47,3 +47,45 @@ function serializeCsv(sites) {
 
   return lines.join("\n");
 }
+
+function getCsvHeadersAndRows(text) {
+  const lines = text.split('\n');
+  const nonEmpty = lines.filter(line => line.trim());
+  if (nonEmpty.length < 2) {
+    throw new Error('CSV needs a header row and at least one data row');
+  }
+
+  const headers = nonEmpty[0].split(',').map(h => h.trim());
+  const rows = nonEmpty.slice(1).map(line => line.split(',').map(v => v.trim()));
+
+  return { headers, rows };
+}
+
+function parseCsvWithHeaders(text) {
+  const { headers, rows } = getCsvHeadersAndRows(text);
+  return rows.map(vals => {
+    const obj = {};
+    headers.forEach((h, i) => {
+      obj[h] = vals[i] ?? '';
+    });
+    return obj;
+  });
+}
+
+function updateCsvRow(text, rowIndex, updatedRow) {
+  const lines = text.split('\n').filter(line => line.trim());
+  if (lines.length < 2) {
+    throw new Error('CSV needs a header row and at least one data row');
+  }
+
+  const headers = lines[0].split(',').map(h => h.trim());
+  const dataRows = lines.slice(1);
+
+  if (rowIndex < 0 || rowIndex >= dataRows.length) {
+    throw new Error('Row index out of range');
+  }
+
+  dataRows[rowIndex] = headers.map(header => String(updatedRow[header] ?? '')).join(',');
+
+  return [lines[0], ...dataRows].join('\n');
+}
