@@ -3,6 +3,7 @@
 [![Explorer](https://img.shields.io/badge/explorer-live-brightgreen)](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://civic-interconnect.github.io/decision_explorer_data_centers/)
 [![CI Status](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/ci-python-zensical.yml/badge.svg?branch=main)](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/ci-python-zensical.yml)
+[![Link Check](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/links.yml/badge.svg?branch=main)](https://github.com/civic-interconnect/decision_explorer_data_centers/actions/workflows/links.yml)
 [![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](#)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
 
@@ -11,8 +12,8 @@
 **[Try the Interactive Explorer](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)**
 To accept the example data and see the results, click the green "Evaluate" button in the lower right-hand corner of either:
 
-- The Example Sites data (CSV)
 - The Example Policies data (TOML)
+- The Example Sites data (CSV)
 
 ![View Results](./docs/images/view-results.png)
 
@@ -107,15 +108,15 @@ git push -u origin main
 
 ## Potential Benefits
 
-- **Tax revenue**: the most reliable benefit when negotiated well. In West Des Moines, Iowa, Microsoft's data centers are projected to generate over $2 billion in tax revenues over the agreement period ([Brookings, 2026](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)). Loudoun County, Virginia (the largest data center market in the world) now receives an estimated $890 million annually in data center tax revenue, nearly matching its entire operating budget, and has lowered its residential real estate tax rate incrementally as a result.¹
+- **Tax revenue**: the most reliable benefit when negotiated well. In West Des Moines, Iowa, Microsoft's data centers are projected to generate over $2 billion in tax revenues over the agreement period ([Brookings](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)). Loudoun County, Virginia (the largest data center market in the world) now receives an estimated $890 million annually in data center tax revenue, nearly matching its entire operating budget, and has lowered its residential real estate tax rate incrementally as a result.¹
 
-- **Grid investment**: data center demand can accelerate grid upgrades that benefit all ratepayers, not just the facility ([Brookings, 2026](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)).
+- **Grid investment**: data center demand can accelerate grid upgrades that benefit all ratepayers, not just the facility ([Brookings](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)).
 
-- **Broadband**: some operators have built regional fiber networks as part of development agreements, enabling businesses, students, and telemedicine across rural areas that would otherwise lack connectivity ([Brookings, 2026](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
+- **Broadband**: some operators have built regional fiber networks as part of development agreements, enabling businesses, students, and telemedicine across rural areas that would otherwise lack connectivity ([Brookings](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
 
-- **University and workforce partnerships**: Microsoft partnered with Gateway Technical College in Wisconsin to launch a Datacenter Academy training more than 1,000 students in five years, and partnered with the University of Wisconsin-Madison on AI-driven research ([Brookings, 2026](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
+- **University and workforce partnerships**: Microsoft partnered with Gateway Technical College in Wisconsin to launch a Datacenter Academy training more than 1,000 students in five years, and partnered with the University of Wisconsin-Madison on AI-driven research ([Brookings](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
 
-¹ Loudoun County figures: [Cardinal News, 2025](https://cardinalnews.org/2025/04/10/data-centers-can-bring-high-paying-jobs-and-millions-in-tax-revenue-is-that-what-southside-will-get/)
+¹ Loudoun County figures: [Cardinal News](https://cardinalnews.org/2025/04/10/data-centers-can-bring-high-paying-jobs-and-millions-in-tax-revenue-is-that-what-southside-will-get/)
 
 ## Resources
 
@@ -138,8 +139,8 @@ git push -u origin main
 ### Water and environmental context
 
 - U.S. Geological Survey (USGS): https://www.usgs.gov/
+- USGS Water Use in the United States: https://www.usgs.gov/mission-areas/water-resources/science/water-use-united-states
 - World Resources Institute (WRI): https://www.wri.org/
-- U.S. Geological Survey (USGS) Water Use in the United States: https://www.usgs.gov/mission-areas/water-resources/science/water-use-united-states
 
 ### Policy and governance
 

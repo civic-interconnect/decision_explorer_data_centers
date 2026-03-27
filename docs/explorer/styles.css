@@ -57,6 +57,32 @@ header {
   font-size: 11px;
   opacity: 0.5;
 }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: #f5f4f0;
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.github-link:hover {
+  opacity: 0.9;
+}
+
+.github-link svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
 
 /* Nav tabs */
 .tabs {
