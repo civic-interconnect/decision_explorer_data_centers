@@ -10,15 +10,15 @@
 
 **[Try the Interactive Explorer](https://civic-interconnect.github.io/decision_explorer_data_centers/explorer/)**
 To accept the example data and see the results, click the green "Evaluate" button in the lower right-hand corner of either:
+
 - The Example Sites data (CSV)
 - The Example Policies data (TOML)
 
-![Edit Data](./docs/images/edit-data.png)
+![View Results](./docs/images/view-results.png)
 
-![Edit Data](./docs/images/view-results.png)
+![Edit Policy](./docs/images/edit-policy.png)
 
-NOTE: March 2026. You may see unrelated Copilot warnings in VS Code due to a known Microsoft issue.
-These can be ignored.
+![Edit Candidate Site](./docs/images/edit-candidate-site.png)
 
 ## This Project
 
@@ -105,16 +105,48 @@ git push -u origin main
 
 </details>
 
-## Developer
+## Potential Benefits
 
-```shell
-Get-ChildItem -Recurse | Where-Object { $_.FullName -notlike '*\__pycache__\*' -and $_.FullName -notlike '*\.git\*' -and $_.FullName -notlike '*\.venv\*' -and $_.Extension -ne '.pyc' -and $_.Extension -ne '.lock' } | Select-Object -ExpandProperty FullName
-```
+- **Tax revenue**: the most reliable benefit when negotiated well. In West Des Moines, Iowa, Microsoft's data centers are projected to generate over $2 billion in tax revenues over the agreement period ([Brookings, 2026](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)). Loudoun County, Virginia (the largest data center market in the world) now receives an estimated $890 million annually in data center tax revenue, nearly matching its entire operating budget, and has lowered its residential real estate tax rate incrementally as a result.¹
+
+- **Grid investment**: data center demand can accelerate grid upgrades that benefit all ratepayers, not just the facility ([Brookings, 2026](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)).
+
+- **Broadband**: some operators have built regional fiber networks as part of development agreements, enabling businesses, students, and telemedicine across rural areas that would otherwise lack connectivity ([Brookings, 2026](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
+
+- **University and workforce partnerships**: Microsoft partnered with Gateway Technical College in Wisconsin to launch a Datacenter Academy training more than 1,000 students in five years, and partnered with the University of Wisconsin-Madison on AI-driven research ([Brookings, 2026](https://www.brookings.edu/articles/turning-the-data-center-boom-into-long-term-local-prosperity/)).
+
+¹ Loudoun County figures: [Cardinal News, 2025](https://cardinalnews.org/2025/04/10/data-centers-can-bring-high-paying-jobs-and-millions-in-tax-revenue-is-that-what-southside-will-get/)
 
 ## Resources
 
-[International Energy Agency (IEA)](https://www.iea.org/)
+### Energy demand - global and U.S.
 
-- Data centers are ~1.5% of global electricity today, rising to ~3% by 2030
-- Major driver of demand increase. In the U.S., potentially ~50% of new demand this decade.
-- [Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)
+- International Energy Agency (IEA) Energy and AI (April 2025): https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai
+  - Global: ~415 TWh in 2024 (1.5% of global electricity); projected to double to ~945 TWh by 2030 (~3%)
+  - U.S.: ~45% of global total in 2024; ~4% of all U.S. electricity
+  - Nearly half of U.S. capacity concentrated in five regional clusters (Northern Virginia, Dallas, Silicon Valley, Phoenix, Chicago area)
+  - U.S. data centers projected to consume more electricity by 2030 than all energy-intensive manufacturing combined
+  - AI is primary driver; accelerated servers growing ~30% annually
+- U.S. Energy Information Administration (EIA): https://www.eia.gov/
+- U.S. Department of Energy (DOE): https://www.energy.gov/
+
+### Data center energy and infrastructure
+
+- Lawrence Berkeley National Laboratory: https://datacenters.lbl.gov/
+- Electric Power Research Institute (EPRI): https://www.epri.com/
+
+### Water and environmental context
+
+- U.S. Geological Survey (USGS): https://www.usgs.gov/
+- World Resources Institute (WRI): https://www.wri.org/
+- U.S. Geological Survey (USGS) Water Use in the United States: https://www.usgs.gov/mission-areas/water-resources/science/water-use-united-states
+
+### Policy and governance
+
+- National Conference of State Legislatures (NCSL): https://www.ncsl.org/
+- Federal Energy Regulatory Commission (FERC): https://www.ferc.gov/
+
+### Industry practices and metrics
+
+- Uptime Institute: https://uptimeinstitute.com/
+- Green Grid: https://www.thegreengrid.org/
