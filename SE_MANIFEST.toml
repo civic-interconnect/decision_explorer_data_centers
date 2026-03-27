@@ -1,0 +1,56 @@
+# ============================================================
+# SE_MANIFEST.toml (Repository Intent, Scope, and Role)
+# ============================================================
+
+schema = "se-manifest-1"
+schema_url = "https://github.com/structural-explainability/spec-se/blob/main/manifests/se-manifest-1.md"
+
+[meta]
+framework = "Structural Explainability"
+framework_url = "https://github.com/structural-explainability"
+description = "Declarative description of repository intent, scope, and role."
+purpose = "To make explicit the boundaries, responsibilities, and expectations of this exploratory decision system."
+
+[repo]
+name = "explorer-data-center-siting"
+kind = "application"
+status = "exploratory"
+since = "2026"
+summary = "Interactive system for exploring tradeoffs in data center siting under configurable policy assumptions."
+
+[layer]
+space = "SE"
+role = "exploration-system"
+
+[depends]
+required = []
+optional = ["datafun-toolkit"]
+
+[provides]
+artifacts = [
+  "CLI (evaluation and JSON export)",
+  "Explorer UI (interactive visualization)",
+  "Policy configuration (TOML)",
+  "Candidate datasets (CSV)",
+]
+
+[scope]
+includes = [
+  "evaluation of candidate designs under configurable policy assumptions",
+  "explicit modeling of tradeoffs across minor protection, privacy, surveillance, and complexity",
+  "transparent scoring via weighted dimensions and scales",
+  "interactive exploration and comparison of alternative designs",
+]
+
+excludes = [
+  "normative policy recommendations or prescriptions",
+  "legal or regulatory compliance determinations",
+  "causal claims about real-world outcomes",
+  "empirical validation of effectiveness",
+  "identity or persistence regime definitions",
+  "interpretation-boundary enforcement",
+]
+
+[citation]
+cff = "CITATION.cff"
+preferred = "software"
