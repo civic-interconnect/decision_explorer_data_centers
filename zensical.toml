@@ -59,6 +59,5 @@ features = [
 nav = [
     { "Home" = "index.md" },
     { "Motivation" = "motivation.md" },
-    { "Explorer" = "explorer.md" },
     { "Glossary" = "glossary.md" },
 ]
