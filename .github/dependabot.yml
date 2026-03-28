@@ -1,11 +1,26 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# ============================================================
+# .github/dependabot.yml (Check for GitHub Actions updates)
+# ============================================================
+# SOURCE: https://github.com/denisecase/templates
+#
+# REQ.PROJECT: This repository SHOULD track GitHub Actions updates automatically.
+# WHY-FILE: GitHub Actions are executable dependencies and may receive security or behavior updates.
+# OBS: Language-level dependencies (e.g., Python packages) are upgraded manually.
+# OBS: GitHub Actions are the only dependency class automated here.
+# ALT: Dependabot could be omitted if workflows are pinned and reviewed manually.
+# CUSTOM: Update interval if CI cadence or security posture changes.
 
-version: 2
+# NOTE: This file automatically updates the versions used in Actions workflows.
+# You don't need to modify this file.
+# To disable: Delete this file or set enabled: false below.
+# enabled: false # Uncomment to disable Dependabot
+
+version: 2 # Dependabot configuration version
+
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "github-actions" # Dependency type
+    directory: "/" # Location of GitHub Actions workflows
     schedule:
-      interval: "monthly"
+      interval: "monthly" # ALT: Use "weekly" for higher security when needed
+    commit-message:
+      prefix: "(deps)"  # WHY: enable filtering by commit type
