@@ -145,8 +145,8 @@ function _detailPanel(detailSite, maxScore = 1) {
   totalRow.appendChild(_el("span", { className: "score-value", textContent: String(detailSite.total) }));
   scoreSection.appendChild(totalRow);
 
-  // Score bar
-  if (detailSite.pass) {
+  // Score bar — shown for all sites
+  if (detailSite.total > 0) {
     const barPct = Math.min(detailSite.total / maxScore, 1);
     const barFilled = Math.round(barPct * 20);
     const bar = "█".repeat(barFilled) + "░".repeat(20 - barFilled);
