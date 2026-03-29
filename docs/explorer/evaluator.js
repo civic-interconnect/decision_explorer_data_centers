@@ -3,19 +3,24 @@
 // Client-side evaluation of CSV site rows against a parsed policy.
 //
 // Expects:
-//   site   — flat object from parseCsv(), all values are strings
-//   policy — output of buildPolicy(), shape:
+//   site   — flat object from parseCsv(); all values are strings
+//   policy — output of buildPolicy(); shape:
 //              { factor_specs, constraint_rules, score_rules, interpretation }
+//
+// Score rule dispatch (exactly one must be present per rule):
+//   numeric_bands      — array of { min_inclusive, max_inclusive, score, band }
+//   binary_scores      — object with keys "true" and "false"
+//   categorical_scores — object with string category keys
 //
 // Returns:
 //   {
 //     candidate_id:   string,
 //     candidate_name: string,
-//     pass:           boolean,   // true iff all constraint_rules pass
-//     checks:         Array<{ key: string, ok: boolean, msg: string }>,
-//     scores:         Object<string, number>,  // rule_id -> weighted score
+//     pass:           boolean,
+//     checks:         Array<{ key, ok, msg }>,
+//     scores:         Object<rule_id, weighted_score>,
 //     total:          number,
-//     interpretation: string,    // highest satisfied label, or ""
+//     interpretation: string,
 //   }
 
 // ---------------------------------------------------------------------------
@@ -47,8 +52,8 @@ function _toFloat(v) {
 /**
  * Evaluate a single constraint rule against a raw site value.
  *
- * @param {string} rawValue - String value from the CSV row.
- * @param {Object} rule - A constraint_rule entry from the policy.
+ * @param {string} rawValue
+ * @param {Object} rule - A constraint_rule entry.
  * @returns {boolean}
  */
 function _evalConstraint(rawValue, rule) {
@@ -59,9 +64,7 @@ function _evalConstraint(rawValue, rule) {
   }
 
   if (typeof threshold === "boolean") {
-    const v = _toBool(rawValue);
-    if (comparator === "eq") return v === threshold;
-    return false;
+    return _toBool(rawValue) === threshold;
   }
 
   if (typeof threshold === "number") {
@@ -71,12 +74,10 @@ function _evalConstraint(rawValue, rule) {
     if (comparator === "eq") return v === threshold;
     if (comparator === "ge") return v >= threshold;
     if (comparator === "gt") return v > threshold;
-    return false;
   }
 
-  if (typeof threshold === "string") {
-    if (comparator === "eq") return rawValue === threshold;
-    return false;
+  if (typeof threshold === "string" && comparator === "eq") {
+    return rawValue === threshold;
   }
 
   return false;
@@ -88,14 +89,20 @@ function _evalConstraint(rawValue, rule) {
 
 /**
  * Evaluate a single score rule against a raw site value.
- * Returns the unweighted score, or null if no band/mapping matched.
+ * Returns the unweighted score, or null if no mapping matched.
+ *
+ * Dispatch order:
+ *   1. numeric_bands (array)
+ *   2. binary_scores (object with "true"/"false" keys)
+ *   3. categorical_scores (object with string category keys)
  *
  * @param {string} rawValue
- * @param {Object} rule - A score_rule entry from the policy.
+ * @param {Object} rule - A score_rule entry.
  * @returns {number|null}
  */
 function _evalScoreRule(rawValue, rule) {
-  if (rule.numeric_bands && rule.numeric_bands.length > 0) {
+  // Numeric bands
+  if (Array.isArray(rule.numeric_bands) && rule.numeric_bands.length > 0) {
     const v = _toFloat(rawValue);
     for (const band of rule.numeric_bands) {
       if (v >= band.min_inclusive && v <= band.max_inclusive) {
@@ -105,13 +112,17 @@ function _evalScoreRule(rawValue, rule) {
     return null;
   }
 
-  if (rule.categorical_scores && typeof rule.categorical_scores === "object") {
-    return rule.categorical_scores[rawValue] ?? null;
+  // Binary scores — keys are the strings "true" / "false"
+  if (rule.binary_scores && typeof rule.binary_scores === "object") {
+    const key = _toBool(rawValue) ? "true" : "false";
+    const score = rule.binary_scores[key];
+    return score !== undefined ? score : null;
   }
 
-  if (rule.binary_scores && typeof rule.binary_scores === "object") {
-    const key = String(_toBool(rawValue));
-    return rule.binary_scores[key] ?? null;
+  // Categorical scores — keys match raw string values
+  if (rule.categorical_scores && typeof rule.categorical_scores === "object") {
+    const score = rule.categorical_scores[rawValue];
+    return score !== undefined ? score : null;
   }
 
   return null;
@@ -122,11 +133,11 @@ function _evalScoreRule(rawValue, rule) {
 // ---------------------------------------------------------------------------
 
 /**
- * Return the highest interpretation label whose threshold is satisfied.
+ * Return the highest interpretation label whose threshold the total satisfies.
  *
  * @param {number} total
  * @param {Object} interpretation - { label: threshold } mapping.
- * @returns {string}
+ * @returns {string} Label string, or "" if none satisfied.
  */
 function _interpretTotal(total, interpretation) {
   if (!interpretation || typeof interpretation !== "object") return "";
@@ -139,6 +150,29 @@ function _interpretTotal(total, interpretation) {
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
+
+/**
+ * Compute the theoretical maximum score from policy score rules.
+ * Mirrors _compute_max_score in reporting/tables.py.
+ *
+ * @param {Object} policy - Output of buildPolicy().
+ * @returns {number}
+ */
+function computeMaxScore(policy) {
+  let total = 0;
+  for (const rule of policy.score_rules ?? []) {
+    let best = 0;
+    if (Array.isArray(rule.numeric_bands) && rule.numeric_bands.length > 0) {
+      best = Math.max(...rule.numeric_bands.map((b) => b.score));
+    } else if (rule.binary_scores && typeof rule.binary_scores === "object") {
+      best = Math.max(...Object.values(rule.binary_scores));
+    } else if (rule.categorical_scores && typeof rule.categorical_scores === "object") {
+      best = Math.max(...Object.values(rule.categorical_scores));
+    }
+    total += best * (rule.weight ?? 1);
+  }
+  return total;
+}
 
 /**
  * Evaluate a site row against a policy.

@@ -5,13 +5,24 @@
 // Supports the subset of TOML used by the policy format:
 //   - Scalar key-value pairs (string, number, bool)
 //   - Inline arrays of strings: key = ["a", "b"]
-//   - [section] tables
-//   - [[array_of_tables]] including nested dotted names (e.g. [[score_rules.numeric_bands]])
+//   - [section] plain tables
+//   - [parent.child] sub-tables attached to last array entry or nested plain tables
+//   - [[array_of_tables]] top-level arrays
+//   - [[parent.child]] nested arrays attached to last parent entry
 
-const DEFAULT_TOML = `[[factor_specs]]
-factor_id = "continuous_noise_monitoring"
-label = "Continuous Noise Monitoring"
-form = "binary"
+const DEFAULT_TOML = `
+# =============================================================================
+# Data Center Site Evaluation Policy
+# Minnesota — Illustrative Multidimensional Policy
+#
+# Hard constraints eliminate sites that cannot meet minimum thresholds.
+# Score rules reward community benefits, workforce quality, and
+# supply-side readiness. Weights reflect relative community priority.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Factor specifications
+# -----------------------------------------------------------------------------
 
 [[factor_specs]]
 factor_id = "county"
@@ -19,9 +30,10 @@ label = "County"
 form = "categorical"
 
 [[factor_specs]]
-factor_id = "demand_response_capable"
-label = "Demand Response Capable"
-form = "binary"
+factor_id = "zoning"
+label = "Zoning"
+form = "categorical"
+allowed_values = ["industrial"]
 
 [[factor_specs]]
 factor_id = "distance_to_residential_m"
@@ -30,8 +42,18 @@ form = "numeric"
 unit = "m"
 
 [[factor_specs]]
+factor_id = "water_stressed_basin"
+label = "Water-Stressed Basin"
+form = "binary"
+
+[[factor_specs]]
 factor_id = "drought_sustainable"
 label = "Drought Sustainable"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "substation_capacity_available"
+label = "Substation Capacity Available"
 form = "binary"
 
 [[factor_specs]]
@@ -41,30 +63,101 @@ form = "numeric"
 unit = "years"
 
 [[factor_specs]]
-factor_id = "operator_pays_grid_upgrades"
-label = "Operator Pays Grid Upgrades"
-form = "binary"
-
-[[factor_specs]]
 factor_id = "requires_major_new_transmission"
 label = "Requires Major New Transmission"
 form = "binary"
 
 [[factor_specs]]
-factor_id = "substation_capacity_available"
-label = "Substation Capacity Available"
+factor_id = "operator_pays_grid_upgrades"
+label = "Operator Pays Grid Upgrades"
 form = "binary"
 
 [[factor_specs]]
-factor_id = "water_stressed_basin"
-label = "Water-Stressed Basin"
+factor_id = "demand_response_capable"
+label = "Demand Response Capable"
 form = "binary"
 
 [[factor_specs]]
-factor_id = "zoning"
-label = "Zoning"
+factor_id = "continuous_noise_monitoring"
+label = "Continuous Noise Monitoring"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "community_benefit_agreement"
+label = "Community Benefit Agreement"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "broadband_extension_commitment"
+label = "Broadband Extension Commitment"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "workforce_transition_program"
+label = "Workforce Transition Program (Displaced Industrial Workers)"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "local_vendor_contracts_committed"
+label = "Local Vendor Contracts Committed"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "projected_annual_tax_revenue_m"
+label = "Projected Annual Tax Revenue"
+form = "numeric"
+unit = "USD millions"
+
+[[factor_specs]]
+factor_id = "construction_jobs_local_pct"
+label = "Construction Jobs — Local Hire %"
+form = "numeric"
+unit = "%"
+
+[[factor_specs]]
+factor_id = "construction_duration_months"
+label = "Construction Duration"
+form = "numeric"
+unit = "months"
+
+[[factor_specs]]
+factor_id = "permanent_ops_jobs_count"
+label = "Permanent Operations Jobs (Committed Minimum)"
+form = "numeric"
+unit = "jobs"
+
+[[factor_specs]]
+factor_id = "permanent_ops_wage_vs_county_median"
+label = "Permanent Ops Wage vs County Median"
+form = "numeric"
+unit = "ratio"
+
+[[factor_specs]]
+factor_id = "gpu_supply_secured"
+label = "GPU Supply Secured"
 form = "categorical"
-allowed_values = ["industrial"]
+allowed_values = ["secured", "partial", "none"]
+
+[[factor_specs]]
+factor_id = "cooling_technology"
+label = "Cooling Technology"
+form = "categorical"
+allowed_values = ["immersion", "liquid", "air"]
+
+[[factor_specs]]
+factor_id = "pue_target"
+label = "Power Usage Effectiveness Target"
+form = "numeric"
+
+[[factor_specs]]
+factor_id = "renewable_energy_pct"
+label = "Renewable Energy Commitment"
+form = "numeric"
+unit = "%"
+
+# -----------------------------------------------------------------------------
+# Hard constraints — eliminate sites that cannot meet minimum thresholds
+# -----------------------------------------------------------------------------
 
 [[constraint_rules]]
 rule_id = "zoning_allowed"
@@ -78,7 +171,14 @@ rule_id = "residential_distance_minimum"
 factor_id = "distance_to_residential_m"
 comparator = "ge"
 threshold = 500.0
-message = "Site must be at least 500 meters from residential areas."
+message = "Site must be at least 500 m from residential areas."
+
+[[constraint_rules]]
+rule_id = "not_water_stressed"
+factor_id = "water_stressed_basin"
+comparator = "eq"
+threshold = false
+message = "Site must not be in a water-stressed basin."
 
 [[constraint_rules]]
 rule_id = "drought_sustainable_required"
@@ -88,11 +188,25 @@ threshold = true
 message = "Site must be drought sustainable."
 
 [[constraint_rules]]
-rule_id = "not_water_stressed"
-factor_id = "water_stressed_basin"
+rule_id = "substation_capacity_required"
+factor_id = "substation_capacity_available"
+comparator = "eq"
+threshold = true
+message = "Site must have available substation capacity."
+
+[[constraint_rules]]
+rule_id = "no_major_new_transmission"
+factor_id = "requires_major_new_transmission"
 comparator = "eq"
 threshold = false
-message = "Site must not be in a water-stressed basin."
+message = "Site must not require major new transmission."
+
+[[constraint_rules]]
+rule_id = "operator_pays_upgrades_required"
+factor_id = "operator_pays_grid_upgrades"
+comparator = "eq"
+threshold = true
+message = "Operator must pay required grid upgrades."
 
 [[constraint_rules]]
 rule_id = "demand_response_required"
@@ -108,32 +222,25 @@ comparator = "eq"
 threshold = true
 message = "Site must support continuous noise monitoring."
 
-[[constraint_rules]]
-rule_id = "operator_pays_upgrades_required"
-factor_id = "operator_pays_grid_upgrades"
-comparator = "eq"
-threshold = true
-message = "Operator must pay required grid upgrades."
+# -----------------------------------------------------------------------------
+# Score rules — weighted contributions to total score
+#
+# Weight groups (approximate):
+#   Infrastructure / grid : 0.50 total
+#   Community benefits    : 2.25 total
+#   Employment            : 2.50 total
+#   Supply-side readiness : 2.00 total
+#
+# Max possible score ≈ 20 (all factors at peak band/value)
+# -----------------------------------------------------------------------------
 
-[[constraint_rules]]
-rule_id = "no_major_new_transmission"
-factor_id = "requires_major_new_transmission"
-comparator = "eq"
-threshold = false
-message = "Site must not require major new transmission."
-
-[[constraint_rules]]
-rule_id = "substation_capacity_required"
-factor_id = "substation_capacity_available"
-comparator = "eq"
-threshold = true
-message = "Site must have available substation capacity."
+# --- Infrastructure ---
 
 [[score_rules]]
 rule_id = "residential_buffer_score"
 factor_id = "distance_to_residential_m"
-weight = 0.5
-rationale = "Greater residential separation is preferred once minimum admissibility is satisfied."
+weight = 0.25
+rationale = "Greater residential separation is preferred beyond minimum."
 
 [[score_rules.numeric_bands]]
 min_inclusive = 500.0
@@ -156,8 +263,8 @@ band = "strong"
 [[score_rules]]
 rule_id = "interconnection_speed_score"
 factor_id = "interconnection_years"
-weight = 0.5
-rationale = "Shorter interconnection timelines are preferred."
+weight = 0.25
+rationale = "Shorter interconnection timelines reduce project risk."
 
 [[score_rules.numeric_bands]]
 min_inclusive = 0.0
@@ -177,10 +284,260 @@ max_inclusive = 100.0
 score = 1.0
 band = "slow"
 
+# --- Community benefits ---
+
+[[score_rules]]
+rule_id = "community_benefit_agreement_score"
+factor_id = "community_benefit_agreement"
+weight = 0.75
+rationale = "Formal CBA signals legally binding community commitments."
+
+[score_rules.binary_scores]
+true = 5.0
+false = 0.0
+
+[[score_rules]]
+rule_id = "broadband_extension_score"
+factor_id = "broadband_extension_commitment"
+weight = 0.25
+rationale = "Broadband extension serves rural connectivity gaps."
+
+[score_rules.binary_scores]
+true = 5.0
+false = 0.0
+
+[[score_rules]]
+rule_id = "projected_tax_revenue_score"
+factor_id = "projected_annual_tax_revenue_m"
+weight = 0.75
+rationale = "Tax revenue is the most reliable and durable community benefit."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 19.99
+score = 1.0
+band = "low"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 20.0
+max_inclusive = 59.99
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 60.0
+max_inclusive = 9999.0
+score = 5.0
+band = "strong"
+
+[[score_rules]]
+rule_id = "local_vendor_contracts_score"
+factor_id = "local_vendor_contracts_committed"
+weight = 0.25
+rationale = "Local vendor contracts sustain indirect employment during and after construction."
+
+[score_rules.binary_scores]
+true = 5.0
+false = 0.0
+
+# --- Employment: construction (lower weight — temporary) ---
+
+[[score_rules]]
+rule_id = "construction_local_hire_score"
+factor_id = "construction_jobs_local_pct"
+weight = 0.25
+rationale = "Local construction hire provides short-term economic stimulus."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 24.99
+score = 1.0
+band = "low"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 25.0
+max_inclusive = 59.99
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 60.0
+max_inclusive = 100.0
+score = 5.0
+band = "strong"
+
+[[score_rules]]
+rule_id = "construction_duration_score"
+factor_id = "construction_duration_months"
+weight = 0.10
+rationale = "Longer construction sustains local employment over more budget cycles."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 12.0
+score = 1.0
+band = "short"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 13.0
+max_inclusive = 24.0
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 25.0
+max_inclusive = 999.0
+score = 5.0
+band = "extended"
+
+# --- Employment: permanent (higher weight — ongoing) ---
+
+[[score_rules]]
+rule_id = "permanent_ops_jobs_score"
+factor_id = "permanent_ops_jobs_count"
+weight = 0.75
+rationale = "Committed minimum permanent jobs; headcount over promises excluded."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 25.0
+score = 1.0
+band = "minimal"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 26.0
+max_inclusive = 75.0
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 76.0
+max_inclusive = 9999.0
+score = 5.0
+band = "strong"
+
+[[score_rules]]
+rule_id = "workforce_transition_score"
+factor_id = "workforce_transition_program"
+weight = 0.50
+rationale = "Explicit programs targeting displaced mining and industrial workers."
+
+[score_rules.binary_scores]
+true = 5.0
+false = 0.0
+
+[[score_rules]]
+rule_id = "permanent_wage_score"
+factor_id = "permanent_ops_wage_vs_county_median"
+weight = 0.65
+rationale = "Wage parity with legacy industrial employment is essential for community acceptance."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 0.99
+score = 0.0
+band = "below_median"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.0
+max_inclusive = 1.24
+score = 2.0
+band = "parity"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.25
+max_inclusive = 1.49
+score = 4.0
+band = "above_median"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.5
+max_inclusive = 99.0
+score = 5.0
+band = "strong_premium"
+
+# --- Supply-side readiness ---
+
+[[score_rules]]
+rule_id = "gpu_supply_score"
+factor_id = "gpu_supply_secured"
+weight = 0.50
+rationale = "GPU supply constraints are a primary cause of project delays."
+
+[score_rules.categorical_scores]
+secured = 5.0
+partial = 3.0
+none = 0.0
+
+[[score_rules]]
+rule_id = "cooling_technology_score"
+factor_id = "cooling_technology"
+weight = 0.50
+rationale = "Liquid and immersion cooling reduce water and energy consumption."
+
+[score_rules.categorical_scores]
+immersion = 5.0
+liquid = 3.0
+air = 1.0
+
+[[score_rules]]
+rule_id = "pue_score"
+factor_id = "pue_target"
+weight = 0.25
+rationale = "Lower PUE indicates greater energy efficiency."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.0
+max_inclusive = 1.19
+score = 5.0
+band = "excellent"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.2
+max_inclusive = 1.39
+score = 3.0
+band = "good"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1.4
+max_inclusive = 99.0
+score = 1.0
+band = "poor"
+
+[[score_rules]]
+rule_id = "renewable_energy_score"
+factor_id = "renewable_energy_pct"
+weight = 0.75
+rationale = "Renewable commitment affects long-term grid load and carbon profile."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 29.99
+score = 1.0
+band = "low"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 30.0
+max_inclusive = 69.99
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 70.0
+max_inclusive = 100.0
+score = 5.0
+band = "strong"
+
+# -----------------------------------------------------------------------------
+# Interpretation thresholds (applied to total weighted score)
+# Max possible ≈ 20
+# -----------------------------------------------------------------------------
+
 [interpretation]
-weak = 1.0
-moderate = 3.0
-strong = 4.5
+weak = 3.0
+moderate = 8.0
+strong = 14.0
+exceptional = 18.0
 `;
 
 // ---------------------------------------------------------------------------
@@ -220,22 +577,18 @@ function _parseScalar(raw) {
  *
  * Handles:
  *   - Scalar key-value pairs
- *   - [section] tables
- *   - [[array_of_tables]] at top level
- *   - [[parent.child]] nested arrays attached to the last parent entry
+ *   - [section] plain tables
+ *   - [parent.child] sub-tables of the last array entry or nested plain tables
+ *   - [[array_of_tables]] top-level arrays
+ *   - [[parent.child]] nested arrays attached to last parent entry
  *
  * @param {string} text - Raw TOML text.
- * @returns {Object} Parsed policy object with arrays for array-of-tables keys.
+ * @returns {Object} Parsed policy object.
  */
 function parseToml(text) {
   const result = {};
-
-  // currentTable: the object currently receiving key=value pairs
-  // currentArrayKey: top-level array name if inside [[array_of_tables]]
-  // currentParentArray: the array itself, for attaching nested [[parent.child]]
   let currentTable = result;
   let currentArrayKey = null;
-  let currentParentArray = null;
 
   for (const raw of text.split("\n")) {
     const line = raw.trim();
@@ -247,18 +600,15 @@ function parseToml(text) {
       const dotIndex = name.indexOf(".");
 
       if (dotIndex === -1) {
-        // Top-level array table: [[factor_specs]], [[constraint_rules]], etc.
+        // Top-level array: [[factor_specs]], [[score_rules]], etc.
         if (!Array.isArray(result[name])) result[name] = [];
-        currentParentArray = result[name];
         currentArrayKey = name;
         currentTable = {};
         result[name].push(currentTable);
       } else {
-        // Nested array table: [[score_rules.numeric_bands]]
+        // Nested array: [[score_rules.numeric_bands]]
         const parentKey = name.slice(0, dotIndex);
         const childKey = name.slice(dotIndex + 1);
-
-        // Attach to the last entry of the parent array
         if (!Array.isArray(result[parentKey]) || result[parentKey].length === 0) {
           throw new Error(
             `[[${name}]] found but no parent [[${parentKey}]] entry exists.`
@@ -269,18 +619,45 @@ function parseToml(text) {
         currentTable = {};
         parentEntry[childKey].push(currentTable);
         currentArrayKey = null;
-        currentParentArray = null;
       }
       continue;
     }
 
-    // [section] plain table
+    // [section] plain table or [parent.child] sub-table
     if (line.startsWith("[") && line.endsWith("]")) {
       const name = line.slice(1, -1).trim();
+      const dotIndex = name.indexOf(".");
+
+      if (dotIndex !== -1) {
+        const parentKey = name.slice(0, dotIndex);
+        const childKey = name.slice(dotIndex + 1);
+
+        // If parent is a non-empty array, attach as sub-table of last entry
+        // e.g. [score_rules.binary_scores] after [[score_rules]]
+        if (Array.isArray(result[parentKey]) && result[parentKey].length > 0) {
+          const parentEntry = result[parentKey][result[parentKey].length - 1];
+          if (!parentEntry[childKey]) parentEntry[childKey] = {};
+          currentTable = parentEntry[childKey];
+          currentArrayKey = null;
+          continue;
+        }
+
+        // Otherwise treat as nested plain table path
+        const parts = name.split(".");
+        let obj = result;
+        for (const part of parts) {
+          if (!obj[part]) obj[part] = {};
+          obj = obj[part];
+        }
+        currentTable = obj;
+        currentArrayKey = null;
+        continue;
+      }
+
+      // Simple [section]
       if (!result[name]) result[name] = {};
       currentTable = result[name];
-      currentArrayKey = null;
-      currentParentArray = null;
+      currentArrayKey = name;
       continue;
     }
 
@@ -298,11 +675,8 @@ function parseToml(text) {
 /**
  * Extract the policy configuration from a parsed TOML object.
  *
- * Returns the four top-level policy keys expected by the evaluation engine:
- * factor_specs, constraint_rules, score_rules, and interpretation.
- *
  * @param {Object} toml - Output of parseToml().
- * @returns {{ factor_specs: Object[], constraint_rules: Object[], score_rules: Object[], interpretation: Object }}
+ * @returns {{ factor_specs, constraint_rules, score_rules, interpretation }}
  */
 function buildPolicy(toml) {
   return {

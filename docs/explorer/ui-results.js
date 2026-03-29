@@ -92,7 +92,7 @@ function _siteRow(r, selectedId) {
  * @param {Object|null} detailSite - Evaluated result row, or null.
  * @returns {HTMLElement} The card body element.
  */
-function _detailPanel(detailSite) {
+function _detailPanel(detailSite, maxScore = 1) {
   const body = _el("div", { className: "card-body" });
 
   if (!detailSite) {
@@ -144,6 +144,17 @@ function _detailPanel(detailSite) {
   totalRow.appendChild(_el("span", { className: "score-rule-id", textContent: "total: " }));
   totalRow.appendChild(_el("span", { className: "score-value", textContent: String(detailSite.total) }));
   scoreSection.appendChild(totalRow);
+
+  // Score bar
+  if (detailSite.pass) {
+    const barPct = Math.min(detailSite.total / maxScore, 1);
+    const barFilled = Math.round(barPct * 20);
+    const bar = "█".repeat(barFilled) + "░".repeat(20 - barFilled);
+    scoreSection.appendChild(_el("div", {
+      className: "score-bar",
+      textContent: `${detailSite.total.toFixed(2)} / ${maxScore.toFixed(2)}  ${bar}`,
+    }));
+  }
 
   if (detailSite.interpretation) {
     scoreSection.appendChild(_el("div", {
@@ -211,6 +222,8 @@ function renderResults() {
     return;
   }
 
+  const maxScore = computeMaxScore(policy);
+
   const results = sites.map((s) => evaluate(s, policy));
   const passing = results.filter((r) => r.pass).length;
   const failing = results.filter((r) => !r.pass).length;
@@ -272,7 +285,7 @@ function renderResults() {
 
   const detailCard = _el("div", { className: "card" });
   detailCard.appendChild(detailHead);
-  detailCard.appendChild(_detailPanel(detailSite));
+  detailCard.appendChild(_detailPanel(detailSite, maxScore));
 
   const contentGrid = _el("div", { className: "grid-2" });
   contentGrid.appendChild(tableCard);

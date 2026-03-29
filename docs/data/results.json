@@ -1,15 +1,21 @@
 {
   "summary": {
-    "total": 4,
-    "passed": 1,
-    "failed": 3
+    "total": 5,
+    "admissible": 3,
+    "not_admissible": 2
   },
   "sites": [
     {
       "candidate_id": "MN001",
-      "candidate_name": "North River Industrial",
-      "passed": true,
-      "checks": [
+      "candidate_name": "North Range Industrial",
+      "county": "Itasca",
+      "admissible": true,
+      "total_score": 31.6,
+      "interpretation": "exceptional",
+      "community_benefit_score": 10.0,
+      "employment_score": 10.6,
+      "supply_side_score": 9.0,
+      "constraints": [
         {
           "criterion": "zoning_allowed",
           "passed": true,
@@ -18,7 +24,12 @@
         {
           "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Site must be at least 500 meters from residential areas."
+          "message": "Site must be at least 500 m from residential areas."
+        },
+        {
+          "criterion": "not_water_stressed",
+          "passed": true,
+          "message": "Site must not be in a water-stressed basin."
         },
         {
           "criterion": "drought_sustainable_required",
@@ -26,9 +37,19 @@
           "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "not_water_stressed",
+          "criterion": "substation_capacity_required",
           "passed": true,
-          "message": "Site must not be in a water-stressed basin."
+          "message": "Site must have available substation capacity."
+        },
+        {
+          "criterion": "no_major_new_transmission",
+          "passed": true,
+          "message": "Site must not require major new transmission."
+        },
+        {
+          "criterion": "operator_pays_upgrades_required",
+          "passed": true,
+          "message": "Operator must pay required grid upgrades."
         },
         {
           "criterion": "demand_response_required",
@@ -39,38 +60,126 @@
           "criterion": "noise_monitoring_required",
           "passed": true,
           "message": "Site must support continuous noise monitoring."
+        }
+      ],
+      "scores": [
+        {
+          "rule_id": "residential_buffer_score",
+          "factor_id": "distance_to_residential_m",
+          "weighted_score": 0.75,
+          "weight": 0.25
         },
         {
-          "criterion": "operator_pays_upgrades_required",
-          "passed": true,
-          "message": "Operator must pay required grid upgrades."
+          "rule_id": "interconnection_speed_score",
+          "factor_id": "interconnection_years",
+          "weighted_score": 1.25,
+          "weight": 0.25
         },
         {
-          "criterion": "no_major_new_transmission",
-          "passed": true,
-          "message": "Site must not require major new transmission."
+          "rule_id": "community_benefit_agreement_score",
+          "factor_id": "community_benefit_agreement",
+          "weighted_score": 3.75,
+          "weight": 0.75
         },
         {
-          "criterion": "substation_capacity_required",
-          "passed": true,
-          "message": "Site must have available substation capacity."
+          "rule_id": "broadband_extension_score",
+          "factor_id": "broadband_extension_commitment",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "projected_tax_revenue_score",
+          "factor_id": "projected_annual_tax_revenue_m",
+          "weighted_score": 3.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "local_vendor_contracts_score",
+          "factor_id": "local_vendor_contracts_committed",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_local_hire_score",
+          "factor_id": "construction_jobs_local_pct",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_duration_score",
+          "factor_id": "construction_duration_months",
+          "weighted_score": 0.5,
+          "weight": 0.1
+        },
+        {
+          "rule_id": "permanent_ops_jobs_score",
+          "factor_id": "permanent_ops_jobs_count",
+          "weighted_score": 3.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "workforce_transition_score",
+          "factor_id": "workforce_transition_program",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "permanent_wage_score",
+          "factor_id": "permanent_ops_wage_vs_county_median",
+          "weighted_score": 2.6,
+          "weight": 0.65
+        },
+        {
+          "rule_id": "gpu_supply_score",
+          "factor_id": "gpu_supply_secured",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "cooling_technology_score",
+          "factor_id": "cooling_technology",
+          "weighted_score": 1.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "pue_score",
+          "factor_id": "pue_target",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "renewable_energy_score",
+          "factor_id": "renewable_energy_pct",
+          "weighted_score": 3.75,
+          "weight": 0.75
         }
       ]
     },
     {
       "candidate_id": "MN002",
-      "candidate_name": "East Edge Mixed Use",
-      "passed": false,
-      "checks": [
+      "candidate_name": "East Corridor Site",
+      "county": "St. Louis",
+      "admissible": true,
+      "total_score": 19.1,
+      "interpretation": "exceptional",
+      "community_benefit_score": 8.5,
+      "employment_score": 4.6,
+      "supply_side_score": 4.5,
+      "constraints": [
         {
           "criterion": "zoning_allowed",
-          "passed": false,
+          "passed": true,
           "message": "Site zoning must be industrial."
         },
         {
           "criterion": "residential_distance_minimum",
-          "passed": false,
-          "message": "Site must be at least 500 meters from residential areas."
+          "passed": true,
+          "message": "Site must be at least 500 m from residential areas."
+        },
+        {
+          "criterion": "not_water_stressed",
+          "passed": true,
+          "message": "Site must not be in a water-stressed basin."
         },
         {
           "criterion": "drought_sustainable_required",
@@ -78,9 +187,19 @@
           "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "not_water_stressed",
+          "criterion": "substation_capacity_required",
           "passed": true,
-          "message": "Site must not be in a water-stressed basin."
+          "message": "Site must have available substation capacity."
+        },
+        {
+          "criterion": "no_major_new_transmission",
+          "passed": true,
+          "message": "Site must not require major new transmission."
+        },
+        {
+          "criterion": "operator_pays_upgrades_required",
+          "passed": true,
+          "message": "Operator must pay required grid upgrades."
         },
         {
           "criterion": "demand_response_required",
@@ -91,29 +210,112 @@
           "criterion": "noise_monitoring_required",
           "passed": true,
           "message": "Site must support continuous noise monitoring."
+        }
+      ],
+      "scores": [
+        {
+          "rule_id": "residential_buffer_score",
+          "factor_id": "distance_to_residential_m",
+          "weighted_score": 0.75,
+          "weight": 0.25
         },
         {
-          "criterion": "operator_pays_upgrades_required",
-          "passed": true,
-          "message": "Operator must pay required grid upgrades."
+          "rule_id": "interconnection_speed_score",
+          "factor_id": "interconnection_years",
+          "weighted_score": 0.75,
+          "weight": 0.25
         },
         {
-          "criterion": "no_major_new_transmission",
-          "passed": true,
-          "message": "Site must not require major new transmission."
+          "rule_id": "community_benefit_agreement_score",
+          "factor_id": "community_benefit_agreement",
+          "weighted_score": 3.75,
+          "weight": 0.75
         },
         {
-          "criterion": "substation_capacity_required",
-          "passed": true,
-          "message": "Site must have available substation capacity."
+          "rule_id": "broadband_extension_score",
+          "factor_id": "broadband_extension_commitment",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "projected_tax_revenue_score",
+          "factor_id": "projected_annual_tax_revenue_m",
+          "weighted_score": 2.25,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "local_vendor_contracts_score",
+          "factor_id": "local_vendor_contracts_committed",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_local_hire_score",
+          "factor_id": "construction_jobs_local_pct",
+          "weighted_score": 0.75,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_duration_score",
+          "factor_id": "construction_duration_months",
+          "weighted_score": 0.3,
+          "weight": 0.1
+        },
+        {
+          "rule_id": "permanent_ops_jobs_score",
+          "factor_id": "permanent_ops_jobs_count",
+          "weighted_score": 2.25,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "workforce_transition_score",
+          "factor_id": "workforce_transition_program",
+          "weighted_score": 0.0,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "permanent_wage_score",
+          "factor_id": "permanent_ops_wage_vs_county_median",
+          "weighted_score": 1.3,
+          "weight": 0.65
+        },
+        {
+          "rule_id": "gpu_supply_score",
+          "factor_id": "gpu_supply_secured",
+          "weighted_score": 1.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "cooling_technology_score",
+          "factor_id": "cooling_technology",
+          "weighted_score": 0.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "pue_score",
+          "factor_id": "pue_target",
+          "weighted_score": 0.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "renewable_energy_score",
+          "factor_id": "renewable_energy_pct",
+          "weighted_score": 2.25,
+          "weight": 0.75
         }
       ]
     },
     {
       "candidate_id": "MN003",
       "candidate_name": "Western Basin Site",
-      "passed": false,
-      "checks": [
+      "county": "Big Stone",
+      "admissible": false,
+      "total_score": 33.25,
+      "interpretation": "exceptional",
+      "community_benefit_score": 10.0,
+      "employment_score": 11.25,
+      "supply_side_score": 10.0,
+      "constraints": [
         {
           "criterion": "zoning_allowed",
           "passed": true,
@@ -122,7 +324,12 @@
         {
           "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Site must be at least 500 meters from residential areas."
+          "message": "Site must be at least 500 m from residential areas."
+        },
+        {
+          "criterion": "not_water_stressed",
+          "passed": false,
+          "message": "Site must not be in a water-stressed basin."
         },
         {
           "criterion": "drought_sustainable_required",
@@ -130,9 +337,19 @@
           "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "not_water_stressed",
-          "passed": false,
-          "message": "Site must not be in a water-stressed basin."
+          "criterion": "substation_capacity_required",
+          "passed": true,
+          "message": "Site must have available substation capacity."
+        },
+        {
+          "criterion": "no_major_new_transmission",
+          "passed": true,
+          "message": "Site must not require major new transmission."
+        },
+        {
+          "criterion": "operator_pays_upgrades_required",
+          "passed": true,
+          "message": "Operator must pay required grid upgrades."
         },
         {
           "criterion": "demand_response_required",
@@ -143,29 +360,112 @@
           "criterion": "noise_monitoring_required",
           "passed": true,
           "message": "Site must support continuous noise monitoring."
+        }
+      ],
+      "scores": [
+        {
+          "rule_id": "residential_buffer_score",
+          "factor_id": "distance_to_residential_m",
+          "weighted_score": 1.25,
+          "weight": 0.25
         },
         {
-          "criterion": "operator_pays_upgrades_required",
-          "passed": true,
-          "message": "Operator must pay required grid upgrades."
+          "rule_id": "interconnection_speed_score",
+          "factor_id": "interconnection_years",
+          "weighted_score": 0.75,
+          "weight": 0.25
         },
         {
-          "criterion": "no_major_new_transmission",
-          "passed": true,
-          "message": "Site must not require major new transmission."
+          "rule_id": "community_benefit_agreement_score",
+          "factor_id": "community_benefit_agreement",
+          "weighted_score": 3.75,
+          "weight": 0.75
         },
         {
-          "criterion": "substation_capacity_required",
-          "passed": true,
-          "message": "Site must have available substation capacity."
+          "rule_id": "broadband_extension_score",
+          "factor_id": "broadband_extension_commitment",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "projected_tax_revenue_score",
+          "factor_id": "projected_annual_tax_revenue_m",
+          "weighted_score": 3.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "local_vendor_contracts_score",
+          "factor_id": "local_vendor_contracts_committed",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_local_hire_score",
+          "factor_id": "construction_jobs_local_pct",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_duration_score",
+          "factor_id": "construction_duration_months",
+          "weighted_score": 0.5,
+          "weight": 0.1
+        },
+        {
+          "rule_id": "permanent_ops_jobs_score",
+          "factor_id": "permanent_ops_jobs_count",
+          "weighted_score": 3.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "workforce_transition_score",
+          "factor_id": "workforce_transition_program",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "permanent_wage_score",
+          "factor_id": "permanent_ops_wage_vs_county_median",
+          "weighted_score": 3.25,
+          "weight": 0.65
+        },
+        {
+          "rule_id": "gpu_supply_score",
+          "factor_id": "gpu_supply_secured",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "cooling_technology_score",
+          "factor_id": "cooling_technology",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "pue_score",
+          "factor_id": "pue_target",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "renewable_energy_score",
+          "factor_id": "renewable_energy_pct",
+          "weighted_score": 3.75,
+          "weight": 0.75
         }
       ]
     },
     {
       "candidate_id": "MN004",
       "candidate_name": "Remote High Cost Site",
-      "passed": false,
-      "checks": [
+      "county": "Lake of the Woods",
+      "admissible": false,
+      "total_score": 5.25,
+      "interpretation": "weak",
+      "community_benefit_score": 0.75,
+      "employment_score": 1.5,
+      "supply_side_score": 1.5,
+      "constraints": [
         {
           "criterion": "zoning_allowed",
           "passed": true,
@@ -174,7 +474,12 @@
         {
           "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Site must be at least 500 meters from residential areas."
+          "message": "Site must be at least 500 m from residential areas."
+        },
+        {
+          "criterion": "not_water_stressed",
+          "passed": true,
+          "message": "Site must not be in a water-stressed basin."
         },
         {
           "criterion": "drought_sustainable_required",
@@ -182,9 +487,19 @@
           "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "not_water_stressed",
-          "passed": true,
-          "message": "Site must not be in a water-stressed basin."
+          "criterion": "substation_capacity_required",
+          "passed": false,
+          "message": "Site must have available substation capacity."
+        },
+        {
+          "criterion": "no_major_new_transmission",
+          "passed": false,
+          "message": "Site must not require major new transmission."
+        },
+        {
+          "criterion": "operator_pays_upgrades_required",
+          "passed": false,
+          "message": "Operator must pay required grid upgrades."
         },
         {
           "criterion": "demand_response_required",
@@ -195,21 +510,248 @@
           "criterion": "noise_monitoring_required",
           "passed": false,
           "message": "Site must support continuous noise monitoring."
+        }
+      ],
+      "scores": [
+        {
+          "rule_id": "residential_buffer_score",
+          "factor_id": "distance_to_residential_m",
+          "weighted_score": 1.25,
+          "weight": 0.25
         },
         {
-          "criterion": "operator_pays_upgrades_required",
-          "passed": false,
-          "message": "Operator must pay required grid upgrades."
+          "rule_id": "interconnection_speed_score",
+          "factor_id": "interconnection_years",
+          "weighted_score": 0.25,
+          "weight": 0.25
         },
         {
-          "criterion": "no_major_new_transmission",
-          "passed": false,
-          "message": "Site must not require major new transmission."
+          "rule_id": "community_benefit_agreement_score",
+          "factor_id": "community_benefit_agreement",
+          "weighted_score": 0.0,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "broadband_extension_score",
+          "factor_id": "broadband_extension_commitment",
+          "weighted_score": 0.0,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "projected_tax_revenue_score",
+          "factor_id": "projected_annual_tax_revenue_m",
+          "weighted_score": 0.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "local_vendor_contracts_score",
+          "factor_id": "local_vendor_contracts_committed",
+          "weighted_score": 0.0,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_local_hire_score",
+          "factor_id": "construction_jobs_local_pct",
+          "weighted_score": 0.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_duration_score",
+          "factor_id": "construction_duration_months",
+          "weighted_score": 0.5,
+          "weight": 0.1
+        },
+        {
+          "rule_id": "permanent_ops_jobs_score",
+          "factor_id": "permanent_ops_jobs_count",
+          "weighted_score": 0.75,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "workforce_transition_score",
+          "factor_id": "workforce_transition_program",
+          "weighted_score": 0.0,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "permanent_wage_score",
+          "factor_id": "permanent_ops_wage_vs_county_median",
+          "weighted_score": 0.0,
+          "weight": 0.65
+        },
+        {
+          "rule_id": "gpu_supply_score",
+          "factor_id": "gpu_supply_secured",
+          "weighted_score": 0.0,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "cooling_technology_score",
+          "factor_id": "cooling_technology",
+          "weighted_score": 0.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "pue_score",
+          "factor_id": "pue_target",
+          "weighted_score": 0.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "renewable_energy_score",
+          "factor_id": "renewable_energy_pct",
+          "weighted_score": 0.75,
+          "weight": 0.75
+        }
+      ]
+    },
+    {
+      "candidate_id": "MN005",
+      "candidate_name": "South Metro Industrial",
+      "county": "Dakota",
+      "admissible": true,
+      "total_score": 16.65,
+      "interpretation": "strong",
+      "community_benefit_score": 2.25,
+      "employment_score": 5.9,
+      "supply_side_score": 7.0,
+      "constraints": [
+        {
+          "criterion": "zoning_allowed",
+          "passed": true,
+          "message": "Site zoning must be industrial."
+        },
+        {
+          "criterion": "residential_distance_minimum",
+          "passed": true,
+          "message": "Site must be at least 500 m from residential areas."
+        },
+        {
+          "criterion": "not_water_stressed",
+          "passed": true,
+          "message": "Site must not be in a water-stressed basin."
+        },
+        {
+          "criterion": "drought_sustainable_required",
+          "passed": true,
+          "message": "Site must be drought sustainable."
         },
         {
           "criterion": "substation_capacity_required",
-          "passed": false,
+          "passed": true,
           "message": "Site must have available substation capacity."
+        },
+        {
+          "criterion": "no_major_new_transmission",
+          "passed": true,
+          "message": "Site must not require major new transmission."
+        },
+        {
+          "criterion": "operator_pays_upgrades_required",
+          "passed": true,
+          "message": "Operator must pay required grid upgrades."
+        },
+        {
+          "criterion": "demand_response_required",
+          "passed": true,
+          "message": "Site must be demand-response capable."
+        },
+        {
+          "criterion": "noise_monitoring_required",
+          "passed": true,
+          "message": "Site must support continuous noise monitoring."
+        }
+      ],
+      "scores": [
+        {
+          "rule_id": "residential_buffer_score",
+          "factor_id": "distance_to_residential_m",
+          "weighted_score": 0.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "interconnection_speed_score",
+          "factor_id": "interconnection_years",
+          "weighted_score": 1.25,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "community_benefit_agreement_score",
+          "factor_id": "community_benefit_agreement",
+          "weighted_score": 0.0,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "broadband_extension_score",
+          "factor_id": "broadband_extension_commitment",
+          "weighted_score": 0.0,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "projected_tax_revenue_score",
+          "factor_id": "projected_annual_tax_revenue_m",
+          "weighted_score": 2.25,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "local_vendor_contracts_score",
+          "factor_id": "local_vendor_contracts_committed",
+          "weighted_score": 0.0,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_local_hire_score",
+          "factor_id": "construction_jobs_local_pct",
+          "weighted_score": 0.75,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "construction_duration_score",
+          "factor_id": "construction_duration_months",
+          "weighted_score": 0.3,
+          "weight": 0.1
+        },
+        {
+          "rule_id": "permanent_ops_jobs_score",
+          "factor_id": "permanent_ops_jobs_count",
+          "weighted_score": 2.25,
+          "weight": 0.75
+        },
+        {
+          "rule_id": "workforce_transition_score",
+          "factor_id": "workforce_transition_program",
+          "weighted_score": 0.0,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "permanent_wage_score",
+          "factor_id": "permanent_ops_wage_vs_county_median",
+          "weighted_score": 2.6,
+          "weight": 0.65
+        },
+        {
+          "rule_id": "gpu_supply_score",
+          "factor_id": "gpu_supply_secured",
+          "weighted_score": 2.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "cooling_technology_score",
+          "factor_id": "cooling_technology",
+          "weighted_score": 1.5,
+          "weight": 0.5
+        },
+        {
+          "rule_id": "pue_score",
+          "factor_id": "pue_target",
+          "weighted_score": 0.75,
+          "weight": 0.25
+        },
+        {
+          "rule_id": "renewable_energy_score",
+          "factor_id": "renewable_energy_pct",
+          "weighted_score": 2.25,
+          "weight": 0.75
         }
       ]
     }

@@ -54,4 +54,4 @@ admissible (PASS) or inadmissible (FAIL) — there is no partial credit.
 **Policy**
 The set of thresholds and requirements used to evaluate candidate sites.
 Policies are defined in TOML format and can be adjusted for different
-jurisdictions or scenarios.
+jurisdictions.

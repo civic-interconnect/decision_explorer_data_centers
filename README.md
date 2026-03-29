@@ -36,11 +36,11 @@ The goal is to make tradeoffs visible and inspectable across multiple dimensions
 ## Contribution
 
 The contribution of this project is the framework for structured exploration,
-not the specific values used in any given scenario.
+not the specific values used in any given evaluation.
 
 - Constraints, thresholds, and weights are configurable
 - Assumptions are explicit and inspectable
-- Results are comparative and scenario-dependent
+- Results are comparative and assumption-dependent
 
 This project does not determine outcomes or recommend decisions.
 It provides a way to examine how different assumptions and constraints shape outcomes.
@@ -57,7 +57,6 @@ Working files are found in these areas:
 
 - Loads candidate sites from CSV and policy constraints from TOML
 - Evaluates hard-constraint admissibility for each site (PASS / FAIL)
-- Evaluates scenario-level decisions (APPROVE / CONDITIONAL / REJECT)
 - Exports results as JSON for the web Explorer
 - Interactive web Explorer for non-technical users
 
@@ -108,10 +107,6 @@ uv run bandit -c pyproject.toml -r src
 uv run pytest --cov=src --cov-report=term-missing
 
 uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidates.csv --policy data/raw/example_policy.toml --output-json docs/data/results.json
-
-
-# Tests (after static checks pass)
-uv run pytest --cov=src --cov-report=term-missing
 
 # Docs build (after everything passes)
 uv run zensical build

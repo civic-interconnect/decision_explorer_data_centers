@@ -29,7 +29,7 @@ classifiers = [
 keywords = [
   "civic", "US", "data centers", "siting", "governance", "tradeoffs", "exploration", "policy", "decision support"
 ]
-dependencies = ["multidimensional_evaluation_engine>=0.2.0"]
+dependencies = ["multidimensional_evaluation_engine>=0.2.2"]
 
 [project.optional-dependencies]
 dev = [
