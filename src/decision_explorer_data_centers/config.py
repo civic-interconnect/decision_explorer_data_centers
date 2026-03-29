@@ -6,7 +6,7 @@ It is imported by other modules to access shared configuration values and logic.
 from pathlib import Path
 from typing import Final
 
-from decision_explorer_data_centers.utils.logging_utils import (
+from multidimensional_evaluation_engine.utils.logging_utils import (
     get_logger,
     log_header,
     log_path,

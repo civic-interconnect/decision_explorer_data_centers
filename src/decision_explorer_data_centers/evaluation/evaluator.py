@@ -1,6 +1,6 @@
 """evaluation/evaluator.py: Evaluation logic (slice 1)."""
 
-from decision_explorer_data_centers.domain.scenario import (
+from ..domain.scenario import (
     EvaluationResult,
     Scenario,
 )

@@ -82,23 +82,41 @@ code .
 ### In a VS Code terminal
 
 ```shell
+# Set Up the Environment
 uv self update
 uv python pin 3.14
 uv sync --extra dev --extra docs --upgrade
-
 uvx pre-commit install
+
+# Local format + lint
+uv run ruff format --check .
+uv run ruff check .
+
+# Pre-commit (enforce repo rules)
 git add -A
 uvx pre-commit run --all-files
 # repeat if changes were made
 git add -A
 uvx pre-commit run --all-files
 
-uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidate_sites.csv --policy data/raw/example_minnesota_policy.toml --output-json docs/data/results.json
+# Static + security + dependency checks
+uv run validate-pyproject pyproject.toml
+uv run deptry .
+uv run bandit -c pyproject.toml -r src
 
-uv run ruff format .
-uv run ruff check . --fix
+# Tests (after static checks pass)
+uv run pytest --cov=src --cov-report=term-missing
+
+uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidates.csv --policy data/raw/example_policy.toml --output-json docs/data/results.json
+
+
+# Tests (after static checks pass)
+uv run pytest --cov=src --cov-report=term-missing
+
+# Docs build (after everything passes)
 uv run zensical build
 
+# Commit and push
 git add -A
 git commit -m "update"
 git push -u origin main

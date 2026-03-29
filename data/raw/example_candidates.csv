@@ -1,4 +1,4 @@
-site_id,site_name,county,zoning,distance_to_residential_m,water_stressed_basin,drought_sustainable,substation_capacity_available,interconnection_years,requires_major_new_transmission,operator_pays_grid_upgrades,demand_response_capable,continuous_noise_monitoring
+candidate_id,candidate_name,county,zoning,distance_to_residential_m,water_stressed_basin,drought_sustainable,substation_capacity_available,interconnection_years,requires_major_new_transmission,operator_pays_grid_upgrades,demand_response_capable,continuous_noise_monitoring
 MN001,North River Industrial,Example,industrial,1200,false,true,true,2.5,false,true,true,true
 MN002,East Edge Mixed Use,Example,mixed_use,300,false,true,true,3.0,false,true,true,true
 MN003,Western Basin Site,Example,industrial,900,true,false,true,2.0,false,true,true,true

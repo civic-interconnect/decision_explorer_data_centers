@@ -2,41 +2,45 @@
 
 This module defines the CLI for the Decision Explorer Data Centers project.
 
-It allows users to run admissibility evaluations on candidate sites and
+It allows users to run admissibility evaluations on candidates and
 explore example scenarios based on Minnesota policy values.
 
-Runs admissibility evaluations on candidate sites against a policy file
+Runs admissibility evaluations on candidates against a policy file
 and optionally exports results as JSON for the web Explorer.
 
 Run:
 
-    uv run python -m decision_explorer_data_centers.cli --candidates path/to/example_candidate_sites.csv --policy path/to/example_minnesota_policy.toml
+    uv run python -m decision_explorer_data_centers.cli --candidates path/to/example_candidates.csv --policy path/to/example_policy.toml
 
 Examples:
 
-    uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidate_sites.csv --policy data/raw/example_minnesota_policy.toml
+    uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidates.csv --policy data/raw/example_policy.toml
 
-    uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidate_sites.csv --policy data/raw/example_minnesota_policy.toml --output-json docs/data/results.json
+    uv run python -m decision_explorer_data_centers.cli --candidates data/raw/example_candidates.csv --policy data/raw/example_policy.toml --output-json docs/data/results.json
 """
 
 import argparse
 import json
 from pathlib import Path
 
-from decision_explorer_data_centers.config import log_project_paths
-from decision_explorer_data_centers.evaluation.admissibility import (
-    evaluate_site_admissibility,
-)
-from decision_explorer_data_centers.evaluation.evaluator import evaluate_scenario
-from decision_explorer_data_centers.io.load_candidates import load_candidate_sites
-from decision_explorer_data_centers.io.load_policy import load_minnesota_policy
-from decision_explorer_data_centers.reporting.tables import format_admissibility_results
-from decision_explorer_data_centers.scenarios.example_minnesota import get_scenario
-from decision_explorer_data_centers.utils.logging_utils import (
+# from multidimensional_evaluation_engine.io.load_candidates import load_candidates
+from multidimensional_evaluation_engine.io.load_policy import load_policy
+from multidimensional_evaluation_engine.policy.policy import Policy
+from multidimensional_evaluation_engine.utils.logging_utils import (
     get_logger,
     log_header,
     log_path,
 )
+
+from .config import log_project_paths
+from .domain.candidates import AdmissibilityResult
+from .evaluation.admissibility import (
+    evaluate_site_admissibility,
+)
+from .evaluation.evaluator import evaluate_scenario
+from .io.load_candidates import load_candidates
+from .reporting.tables import format_admissibility_results
+from .scenarios.example import get_scenario
 
 logger = get_logger(__name__)
 
@@ -50,13 +54,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--candidates",
         type=Path,
         required=True,
-        help="Path to example_candidate_sites.csv",
+        help="Path to example_candidates.csv",
     )
     parser.add_argument(
         "--policy",
         type=Path,
         required=True,
-        help="Path to example_minnesota_policy.toml",
+        help="Path to example_policy.toml",
     )
     parser.add_argument(
         "--output-json",
@@ -69,14 +73,14 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def results_to_dict(results: list) -> dict:
+def results_to_dict(results: list[AdmissibilityResult]) -> dict[str, object]:
     """Serialize admissibility results to a JSON-compatible dict."""
     sites = []
     for r in results:
         sites.append(
             {
-                "site_id": r.site.site_id,
-                "site_name": r.site.site_name,
+                "candidate_id": r.site.candidate_id,
+                "candidate_name": r.site.candidate_name,
                 "passed": r.passed,
                 "checks": [
                     {
@@ -111,8 +115,8 @@ def main() -> None:
     log_path("Candidates", args.candidates)
     log_path("Policy", args.policy)
 
-    sites = load_candidate_sites(args.candidates)
-    policy = load_minnesota_policy(args.policy)
+    policy: Policy = load_policy(args.policy)
+    sites = load_candidates(args.candidates, policy)
 
     log_header("Evaluate Candidate Site Admissibility")
     results = [evaluate_site_admissibility(site, policy) for site in sites]

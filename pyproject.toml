@@ -29,12 +29,18 @@ classifiers = [
 keywords = [
   "civic", "US", "data centers", "siting", "governance", "tradeoffs", "exploration", "policy", "decision support"
 ]
-dependencies = ["datafun-toolkit"]
+dependencies = ["multidimensional_evaluation_engine>=0.2.0"]
 
 [project.optional-dependencies]
 dev = [
+    # packaging required by validate-pyproject (below).
+    "bandit",
+    "deptry",
     "packaging",
     "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "pyright",
     "ruff",
     "validate-pyproject",
 ]
@@ -45,6 +51,64 @@ docs = [
 
 [project.scripts]
 decision-explorer-data-centers = "decision_explorer_data_centers.cli:main"
+
+[project.urls]
+# WHY: Canonical project links used by tooling and documentation.
+Documentation = "https://civic-interconnect.github.io/decision_explorer_data_centers/"
+Issues = "https://github.com/civic-interconnect/decision_explorer_data_centers/issues"
+Repository = "https://github.com/civic-interconnect/decision_explorer_data_centers"
+
+# === Deptry
+
+[tool.deptry.per_rule_ignores]
+DEP002 = [
+    # === DEV TOOLING (not required at runtime) ===
+    "bandit",
+    "deptry",
+    "packaging",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "pyright",
+    "ruff",
+    "validate-pyproject",
+
+    # === DOCUMENTATION TOOLING (not required at runtime) ===
+    "mkdocstrings",         # WHY: Needed for [python] extra (above).
+    "zensical",             # WHY: Zensical is used for AI-assisted documentation.
+]
+
+# === Pyright
+
+[tool.pyright]
+# WHY: Static type checking for early error detection and clearer interfaces.
+typeCheckingMode = "basic"
+include = ["src"]
+extraPaths = ["src"]
+pythonVersion = "3.14"
+reportMissingImports = "warning"
+reportMissingTypeStubs = "none"
+reportPrivateUsage = "none"
+useLibraryCodeForTypes = false
+venv = ".venv"
+venvPath = "."
+exclude = [
+    "**/node_modules/**",
+    "**/__pycache__/**",
+    "**/.git/**",
+    "**/.venv/**",
+    "**/data/**",
+    "**/artifacts/**",
+    "**/.*",
+]
+
+# === Pytest
+
+[tool.pytest.ini_options]
+# WHY: Ensure tests are discoverable and coverage is visible.
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-q --cov=multidimensional_evaluation_engine --cov-report=term-missing"
 
 # === RUFF (PYTHON FORMATTING AND LINTING) ===
 

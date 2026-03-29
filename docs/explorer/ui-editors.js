@@ -53,8 +53,8 @@ function addCsvRow() {
   const headers = lines[0].split(",").map((h) => h.trim());
   const newRow = headers
     .map((h, i) => {
-      if (h === "site_id") return "MN00" + lines.length;
-      if (h === "site_name") return "New Site";
+      if (h === "candidate_id") return "MN00" + lines.length;
+      if (h === "candidate_name") return "New Site";
       if (h === "county") return "Example";
       if (h === "zoning") return "industrial";
       if (h === "distance_to_residential_m") return "600";
@@ -93,7 +93,7 @@ function downloadFile(type) {
 
 function getCurrentCsvRows() {
   const text = document.getElementById("csv-editor").value || state.csv || "";
-  return parseCsvWithHeaders(text);
+  return parseCsv(text);
 }
 
 function refreshCsvRowHelper() {
@@ -129,9 +129,9 @@ function refreshCsvRowHelper() {
   select.innerHTML = rows
     .map((row, idx) => {
       const label =
-        (row.site_id || "Row " + (idx + 1)) +
+        (row.candidate_id || "Row " + (idx + 1)) +
         " — " +
-        (row.site_name || "Unnamed Site");
+        (row.candidate_name || "Unnamed Site");
       return (
         '<option value="' +
         idx +
@@ -152,8 +152,8 @@ function renderCsvRowForm(row) {
   if (!form) return;
 
   form.innerHTML = `
-    ${renderTextField("site_id", "Site ID", row.site_id)}
-    ${renderTextField("site_name", "Site Name", row.site_name)}
+    ${renderTextField("candidate_id", "Site ID", row.candidate_id)}
+    ${renderTextField("candidate_name", "Site Name", row.candidate_name)}
     ${renderTextField("county", "County", row.county)}
     ${renderTextField("zoning", "Zoning", row.zoning)}
     ${renderNumberField("distance_to_residential_m", "Distance to Residential (m)", row.distance_to_residential_m)}

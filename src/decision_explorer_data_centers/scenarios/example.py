@@ -1,6 +1,6 @@
-"""scenarios/example_minnesota.py: Example Minnesota scenario (values are for illustration only)."""
+"""scenarios/example.py: Example Minnesota scenario (values are for illustration only)."""
 
-from decision_explorer_data_centers.domain.scenario import Scenario
+from ..domain.scenario import Scenario
 
 
 def get_scenario() -> Scenario:

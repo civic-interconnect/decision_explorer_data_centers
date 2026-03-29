@@ -1,0 +1,173 @@
+[[factor_specs]]
+factor_id = "continuous_noise_monitoring"
+label = "Continuous Noise Monitoring"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "county"
+label = "County"
+form = "categorical"
+
+[[factor_specs]]
+factor_id = "demand_response_capable"
+label = "Demand Response Capable"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "distance_to_residential_m"
+label = "Distance to Residential"
+form = "numeric"
+unit = "m"
+
+[[factor_specs]]
+factor_id = "drought_sustainable"
+label = "Drought Sustainable"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "interconnection_years"
+label = "Interconnection Years"
+form = "numeric"
+unit = "years"
+
+[[factor_specs]]
+factor_id = "operator_pays_grid_upgrades"
+label = "Operator Pays Grid Upgrades"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "requires_major_new_transmission"
+label = "Requires Major New Transmission"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "substation_capacity_available"
+label = "Substation Capacity Available"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "water_stressed_basin"
+label = "Water-Stressed Basin"
+form = "binary"
+
+[[factor_specs]]
+factor_id = "zoning"
+label = "Zoning"
+form = "categorical"
+allowed_values = ["industrial"]
+
+[[constraint_rules]]
+rule_id = "zoning_allowed"
+factor_id = "zoning"
+comparator = "in"
+threshold = ["industrial"]
+message = "Site zoning must be industrial."
+
+[[constraint_rules]]
+rule_id = "residential_distance_minimum"
+factor_id = "distance_to_residential_m"
+comparator = "ge"
+threshold = 500.0
+message = "Site must be at least 500 meters from residential areas."
+
+[[constraint_rules]]
+rule_id = "drought_sustainable_required"
+factor_id = "drought_sustainable"
+comparator = "eq"
+threshold = true
+message = "Site must be drought sustainable."
+
+[[constraint_rules]]
+rule_id = "not_water_stressed"
+factor_id = "water_stressed_basin"
+comparator = "eq"
+threshold = false
+message = "Site must not be in a water-stressed basin."
+
+[[constraint_rules]]
+rule_id = "demand_response_required"
+factor_id = "demand_response_capable"
+comparator = "eq"
+threshold = true
+message = "Site must be demand-response capable."
+
+[[constraint_rules]]
+rule_id = "noise_monitoring_required"
+factor_id = "continuous_noise_monitoring"
+comparator = "eq"
+threshold = true
+message = "Site must support continuous noise monitoring."
+
+[[constraint_rules]]
+rule_id = "operator_pays_upgrades_required"
+factor_id = "operator_pays_grid_upgrades"
+comparator = "eq"
+threshold = true
+message = "Operator must pay required grid upgrades."
+
+[[constraint_rules]]
+rule_id = "no_major_new_transmission"
+factor_id = "requires_major_new_transmission"
+comparator = "eq"
+threshold = false
+message = "Site must not require major new transmission."
+
+[[constraint_rules]]
+rule_id = "substation_capacity_required"
+factor_id = "substation_capacity_available"
+comparator = "eq"
+threshold = true
+message = "Site must have available substation capacity."
+
+[[score_rules]]
+rule_id = "residential_buffer_score"
+factor_id = "distance_to_residential_m"
+weight = 0.5
+rationale = "Greater residential separation is preferred once minimum admissibility is satisfied."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 500.0
+max_inclusive = 999.99
+score = 1.0
+band = "minimum"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 1000.0
+max_inclusive = 1999.99
+score = 3.0
+band = "moderate"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 2000.0
+max_inclusive = 1000000.0
+score = 5.0
+band = "strong"
+
+[[score_rules]]
+rule_id = "interconnection_speed_score"
+factor_id = "interconnection_years"
+weight = 0.5
+rationale = "Shorter interconnection timelines are preferred."
+
+[[score_rules.numeric_bands]]
+min_inclusive = 0.0
+max_inclusive = 2.0
+score = 5.0
+band = "fast"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 2.01
+max_inclusive = 5.0
+score = 3.0
+band = "acceptable"
+
+[[score_rules.numeric_bands]]
+min_inclusive = 5.01
+max_inclusive = 100.0
+score = 1.0
+band = "slow"
+
+[interpretation]
+weak = 1.0
+moderate = 3.0
+strong = 4.5

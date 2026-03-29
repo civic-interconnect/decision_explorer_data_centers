@@ -6,230 +6,210 @@
   },
   "sites": [
     {
-      "site_id": "MN001",
-      "site_name": "North River Industrial",
+      "candidate_id": "MN001",
+      "candidate_name": "North River Industrial",
       "passed": true,
       "checks": [
         {
-          "criterion": "zoning",
+          "criterion": "zoning_allowed",
           "passed": true,
-          "message": "Zoning 'industrial' is allowed."
+          "message": "Site zoning must be industrial."
         },
         {
-          "criterion": "distance_to_residential",
+          "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Distance to residential (1200.0 m) meets minimum."
+          "message": "Site must be at least 500 meters from residential areas."
         },
         {
-          "criterion": "water_stressed_basin",
+          "criterion": "drought_sustainable_required",
           "passed": true,
-          "message": "Site is not in a water-stressed basin."
+          "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "drought_sustainable",
+          "criterion": "not_water_stressed",
           "passed": true,
-          "message": "Site is sustainable under drought conditions."
+          "message": "Site must not be in a water-stressed basin."
         },
         {
-          "criterion": "substation_capacity",
+          "criterion": "demand_response_required",
           "passed": true,
-          "message": "Substation capacity is available."
+          "message": "Site must be demand-response capable."
         },
         {
-          "criterion": "interconnection_timeline",
+          "criterion": "noise_monitoring_required",
           "passed": true,
-          "message": "Interconnection timeline (2.5 years) is within allowed range."
+          "message": "Site must support continuous noise monitoring."
         },
         {
-          "criterion": "major_new_transmission",
+          "criterion": "operator_pays_upgrades_required",
           "passed": true,
-          "message": "Site does not require major new transmission."
+          "message": "Operator must pay required grid upgrades."
         },
         {
-          "criterion": "grid_upgrade_cost_allocation",
+          "criterion": "no_major_new_transmission",
           "passed": true,
-          "message": "Operator pays grid upgrade costs."
+          "message": "Site must not require major new transmission."
         },
         {
-          "criterion": "demand_response_capable",
+          "criterion": "substation_capacity_required",
           "passed": true,
-          "message": "Site supports demand response."
-        },
-        {
-          "criterion": "continuous_noise_monitoring",
-          "passed": true,
-          "message": "Continuous noise monitoring is provided."
+          "message": "Site must have available substation capacity."
         }
       ]
     },
     {
-      "site_id": "MN002",
-      "site_name": "East Edge Mixed Use",
+      "candidate_id": "MN002",
+      "candidate_name": "East Edge Mixed Use",
       "passed": false,
       "checks": [
         {
-          "criterion": "zoning",
+          "criterion": "zoning_allowed",
           "passed": false,
-          "message": "Zoning 'mixed_use' is not in allowed set ('industrial',)."
+          "message": "Site zoning must be industrial."
         },
         {
-          "criterion": "distance_to_residential",
+          "criterion": "residential_distance_minimum",
           "passed": false,
-          "message": "Distance to residential (300.0 m) is below minimum 500.0 m."
+          "message": "Site must be at least 500 meters from residential areas."
         },
         {
-          "criterion": "water_stressed_basin",
+          "criterion": "drought_sustainable_required",
           "passed": true,
-          "message": "Site is not in a water-stressed basin."
+          "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "drought_sustainable",
+          "criterion": "not_water_stressed",
           "passed": true,
-          "message": "Site is sustainable under drought conditions."
+          "message": "Site must not be in a water-stressed basin."
         },
         {
-          "criterion": "substation_capacity",
+          "criterion": "demand_response_required",
           "passed": true,
-          "message": "Substation capacity is available."
+          "message": "Site must be demand-response capable."
         },
         {
-          "criterion": "interconnection_timeline",
+          "criterion": "noise_monitoring_required",
           "passed": true,
-          "message": "Interconnection timeline (3.0 years) is within allowed range."
+          "message": "Site must support continuous noise monitoring."
         },
         {
-          "criterion": "major_new_transmission",
+          "criterion": "operator_pays_upgrades_required",
           "passed": true,
-          "message": "Site does not require major new transmission."
+          "message": "Operator must pay required grid upgrades."
         },
         {
-          "criterion": "grid_upgrade_cost_allocation",
+          "criterion": "no_major_new_transmission",
           "passed": true,
-          "message": "Operator pays grid upgrade costs."
+          "message": "Site must not require major new transmission."
         },
         {
-          "criterion": "demand_response_capable",
+          "criterion": "substation_capacity_required",
           "passed": true,
-          "message": "Site supports demand response."
-        },
-        {
-          "criterion": "continuous_noise_monitoring",
-          "passed": true,
-          "message": "Continuous noise monitoring is provided."
+          "message": "Site must have available substation capacity."
         }
       ]
     },
     {
-      "site_id": "MN003",
-      "site_name": "Western Basin Site",
+      "candidate_id": "MN003",
+      "candidate_name": "Western Basin Site",
       "passed": false,
       "checks": [
         {
-          "criterion": "zoning",
+          "criterion": "zoning_allowed",
           "passed": true,
-          "message": "Zoning 'industrial' is allowed."
+          "message": "Site zoning must be industrial."
         },
         {
-          "criterion": "distance_to_residential",
+          "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Distance to residential (900.0 m) meets minimum."
+          "message": "Site must be at least 500 meters from residential areas."
         },
         {
-          "criterion": "water_stressed_basin",
+          "criterion": "drought_sustainable_required",
           "passed": false,
-          "message": "Site is in a water-stressed basin."
+          "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "drought_sustainable",
+          "criterion": "not_water_stressed",
           "passed": false,
-          "message": "Site is not sustainable under drought conditions."
+          "message": "Site must not be in a water-stressed basin."
         },
         {
-          "criterion": "substation_capacity",
+          "criterion": "demand_response_required",
           "passed": true,
-          "message": "Substation capacity is available."
+          "message": "Site must be demand-response capable."
         },
         {
-          "criterion": "interconnection_timeline",
+          "criterion": "noise_monitoring_required",
           "passed": true,
-          "message": "Interconnection timeline (2.0 years) is within allowed range."
+          "message": "Site must support continuous noise monitoring."
         },
         {
-          "criterion": "major_new_transmission",
+          "criterion": "operator_pays_upgrades_required",
           "passed": true,
-          "message": "Site does not require major new transmission."
+          "message": "Operator must pay required grid upgrades."
         },
         {
-          "criterion": "grid_upgrade_cost_allocation",
+          "criterion": "no_major_new_transmission",
           "passed": true,
-          "message": "Operator pays grid upgrade costs."
+          "message": "Site must not require major new transmission."
         },
         {
-          "criterion": "demand_response_capable",
+          "criterion": "substation_capacity_required",
           "passed": true,
-          "message": "Site supports demand response."
-        },
-        {
-          "criterion": "continuous_noise_monitoring",
-          "passed": true,
-          "message": "Continuous noise monitoring is provided."
+          "message": "Site must have available substation capacity."
         }
       ]
     },
     {
-      "site_id": "MN004",
-      "site_name": "Remote High Cost Site",
+      "candidate_id": "MN004",
+      "candidate_name": "Remote High Cost Site",
       "passed": false,
       "checks": [
         {
-          "criterion": "zoning",
+          "criterion": "zoning_allowed",
           "passed": true,
-          "message": "Zoning 'industrial' is allowed."
+          "message": "Site zoning must be industrial."
         },
         {
-          "criterion": "distance_to_residential",
+          "criterion": "residential_distance_minimum",
           "passed": true,
-          "message": "Distance to residential (1500.0 m) meets minimum."
+          "message": "Site must be at least 500 meters from residential areas."
         },
         {
-          "criterion": "water_stressed_basin",
+          "criterion": "drought_sustainable_required",
           "passed": true,
-          "message": "Site is not in a water-stressed basin."
+          "message": "Site must be drought sustainable."
         },
         {
-          "criterion": "drought_sustainable",
+          "criterion": "not_water_stressed",
           "passed": true,
-          "message": "Site is sustainable under drought conditions."
+          "message": "Site must not be in a water-stressed basin."
         },
         {
-          "criterion": "substation_capacity",
+          "criterion": "demand_response_required",
           "passed": false,
-          "message": "Substation capacity is not currently available."
+          "message": "Site must be demand-response capable."
         },
         {
-          "criterion": "interconnection_timeline",
+          "criterion": "noise_monitoring_required",
           "passed": false,
-          "message": "Interconnection timeline (6.5 years) exceeds maximum 5.0 years."
+          "message": "Site must support continuous noise monitoring."
         },
         {
-          "criterion": "major_new_transmission",
+          "criterion": "operator_pays_upgrades_required",
           "passed": false,
-          "message": "Site requires major new transmission."
+          "message": "Operator must pay required grid upgrades."
         },
         {
-          "criterion": "grid_upgrade_cost_allocation",
+          "criterion": "no_major_new_transmission",
           "passed": false,
-          "message": "Operator does not pay grid upgrade costs."
+          "message": "Site must not require major new transmission."
         },
         {
-          "criterion": "demand_response_capable",
+          "criterion": "substation_capacity_required",
           "passed": false,
-          "message": "Site does not support demand response."
-        },
-        {
-          "criterion": "continuous_noise_monitoring",
-          "passed": false,
-          "message": "Continuous noise monitoring is not provided."
+          "message": "Site must have available substation capacity."
         }
       ]
     }

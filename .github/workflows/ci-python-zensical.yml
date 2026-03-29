@@ -77,8 +77,8 @@ jobs:
       - name: D1) Export results JSON for Explorer
         run: |
           uv run python -m decision_explorer_data_centers.cli \
-            --candidates data/raw/example_candidate_sites.csv \
-            --policy data/raw/example_minnesota_policy.toml \
+            --candidates data/raw/example_candidates.csv \
+            --policy data/raw/example_policy.toml \
             --output-json docs/data/results.json
 
       - name: D2) Build docs with Zensical

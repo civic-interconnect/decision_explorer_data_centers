@@ -1,4 +1,4 @@
-"""domain/sites.py: Domain models for candidate sites and admissibility results."""
+"""domain/candidates.py: Domain models for candidates and admissibility results."""
 
 from dataclasses import dataclass, field
 
@@ -7,8 +7,8 @@ from dataclasses import dataclass, field
 class CandidateSite:
     """A candidate data center site with simplified first-slice inputs."""
 
-    site_id: str
-    site_name: str
+    candidate_id: str
+    candidate_name: str
     county: str
     zoning: str
     distance_to_residential_m: float
