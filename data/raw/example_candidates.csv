@@ -4,3 +4,4 @@ MN002,East Corridor Site,St. Louis,industrial,1100,false,true,true,3.5,false,tru
 MN003,Western Basin Site,Big Stone,industrial,2200,true,false,true,2.5,false,true,true,true,true,true,true,true,120.0,70.0,30,110,1.6,secured,immersion,1.05,95.0
 MN004,Remote High Cost Site,Lake of the Woods,industrial,3500,false,true,false,7.5,true,false,false,false,false,false,false,false,8.0,15.0,36,12,0.95,none,air,1.8,5.0
 MN005,South Metro Industrial,Dakota,industrial,650,false,true,true,1.5,false,true,true,true,false,false,false,false,55.0,30.0,20,60,1.3,secured,liquid,1.2,60.0
+MN006,Borderline Admissible Site,Aitkin,industrial,510,false,true,true,4.8,false,true,true,true,false,false,false,false,12.0,20.0,14,18,1.05,none,air,1.55,15.0
