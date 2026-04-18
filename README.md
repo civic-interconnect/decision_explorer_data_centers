@@ -15,6 +15,11 @@ To accept the example data and see the results, click the green "Evaluate" butto
 - The Example Policies data (TOML)
 - The Example Sites data (CSV)
 
+## Example Output
+
+Displayed results are illustrative.
+Try the interactive explorer for current examples.
+
 ![View Results](./docs/images/view-results.png)
 
 ![Edit Policy](./docs/images/edit-policy.png)
@@ -66,7 +71,8 @@ Working files are found in these areas:
 
 Tax revenue is potentially significant and is set during negotiations.
 In West Des Moines, Iowa, Microsoft's data centers are projected
-to generate over $2 billion in tax revenues over the agreement period ([Brookings](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)).
+to generate over $2 billion in tax revenues over the agreement
+period ([Brookings](https://www.brookings.edu/articles/why-community-benefit-agreements-are-necessary-for-data-centers/)).
 Loudoun County, Virginia (the largest data center market in the world)
 now receives an estimated $890 million annually in data center tax revenue,
 nearly matching its entire operating budget, and has lowered its
@@ -109,8 +115,10 @@ Ozone readings in the Memphis metropolitan area have exceeded federal limits
 for at least two years, and the Southern Environmental Law Center (SELC)
 petitioned the EPA to formally recognize the area's failure
 to meet national air quality standards.
-The American Lung Association gave both [Shelby County, TN](https://www.lung.org/research/sota/city-rankings/states/tennessee/shelby), and
-[DeSoto County, MS](https://www.lung.org/research/sota/city-rankings/states/mississippi/desoto) an "F" for ozone pollution.
+The American Lung Association gave both
+[Shelby County, TN](https://www.lung.org/research/sota/city-rankings/states/tennessee/shelby), and
+[DeSoto County, MS](https://www.lung.org/research/sota/city-rankings/states/mississippi/desoto)
+an "F" for ozone pollution.
 
 Sources:
 - [TIME Investigation](https://time.com/7308925/elon-musk-memphis-ai-data-center/),
@@ -154,7 +162,6 @@ Boxtown was annexed from the City of Memphis in the 1960s as part of an "urban r
 and has since become home to multiple industrial facilities, including a coal oil refinery,
 chemical plants, and large-scale food processing operations.
 Community members testified at public hearings, with one resident stating through tears:
-
 _"I can't breathe at home, it smells like gas outside."_
 
 Sources:

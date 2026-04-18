@@ -59,17 +59,16 @@ jobs:
         # WHY: Sets Pages metadata used by upload-pages-artifact and deploy-pages.
         # OBS: Must run before the build step so base URL is available if needed.
 
-      - name: A3) Install uv (with caching)
+      - name: A3) Install uv (with caching and uv.lock awareness)
         uses: astral-sh/setup-uv@v7
         with:
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
-          # WHY: Invalidate cache only when locked dependencies change.
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
 
       - name: A4) Install Python 3.14
         run: uv python install 3.14
 
-      - name: A5) Install all dependencies
+      - name: A5) Sync to install all dependencies
         run: uv sync --extra dev --extra docs --upgrade
         # WHY: Docs extras required for Zensical build; dev extras for consistency.
 
