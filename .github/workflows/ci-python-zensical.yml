@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/ci-python-zensical.yml (Continuous Integration)
 # ============================================================
-# Updated: 2026-04-13
+# Updated: 2026-04-18 - CUSTOM: includes explorer result step
 #
 # WHY-FILE: Validate repository hygiene, Python correctness, and documentation builds.
 # REQ: CI MUST NOT introduce arbitrary rules that are not reproducible locally.
@@ -20,11 +20,12 @@
 #   - pyright type checking (B2)
 #   - pytest (B3)
 #   - zensical docs build (D1)
+#   - explorer result validation (E1)
 #
 # WHY SEPARATE: These tools are slower, require the full environment,
 # or produce output worth seeing in CI logs independently.
 
-name: CI (Python + Zensical)
+name: CI (Python + Zensical + Explorer)
 
 on:
   push:
@@ -57,13 +58,11 @@ jobs:
         uses: actions/checkout@v6
         # WHY: Required so all subsequent steps can access repo files.
 
-      - name: A2) Install uv (with caching)
+      - name: A2) Install uv (with caching and uv.lock awareness)
         uses: astral-sh/setup-uv@v7
         with:
-          enable-cache: true
-          # WHY: Cache the uv tool itself for faster subsequent runs.
-          cache-dependency-glob: "uv.lock"
-          # WHY: Invalidate cache only when locked dependencies change.
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
 
       - name: A3) Install Python 3.14
         run: uv python install 3.14
@@ -123,7 +122,15 @@ jobs:
       # D) Docs build (no deployment)
       # ============================================================
 
-      - name: D1) Build documentation with Zensical
+      # CUSTOM: Export Explorer results.
+      - name: D1) Export results JSON for Explorer
+        run: |
+          uv run python -m decision_explorer_data_centers.cli \
+            --candidates data/raw/example_candidates.csv \
+            --policy data/raw/example_policy.toml \
+            --output-json docs/data/results.json
+
+      - name: D2) Build documentation with Zensical
         run: |
           if [ -f "zensical.toml" ]; then
             uv run python -m zensical build

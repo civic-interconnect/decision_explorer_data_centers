@@ -225,9 +225,11 @@ to comparable local investment ([NCRC](https://ncrc.org/south-memphis-residents-
 - National Conference of State Legislatures (NCSL): <https://www.ncsl.org/>
 - Federal Energy Regulatory Commission (FERC): <https://www.ferc.gov/>
 - EPA Environmental Justice Screening Tool (EJScreen, archived): <https://19january2021snapshot.epa.gov/ejscreen/index.html> -
-  environmental justice screening and mapping tool;
-  removed from EPA website February 2025;
-  archived data downloads remain available
+  environmental justice screening and mapping tool; removed from EPA website February 2025;
+- EPA EJScreen v2.3 (reconstructed): <https://pedp-ejscreen.azurewebsites.net/> -
+  reconstructed and hosted by the Public Environmental Data Partners (PEDP)
+- Public Environmental Data Partners (PEDP): <https://screening-tools.com> -
+  volunteer coalition preserving and reconstructing federal environmental datasets
 - CDC/ATSDR Social Vulnerability Index (SVI): <https://www.atsdr.cdc.gov/placeandhealth/svi/index.html> - census-tract level vulnerability data for identifying overburdened communities;
 - EPA AirNow: <https://www.airnow.gov> - real-time and historical air quality index data by location
 
