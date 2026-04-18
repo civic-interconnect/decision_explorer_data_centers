@@ -45,4 +45,6 @@ exclude = [
   "localhost",       # WHY: Exclude local development URLs
   "127\\.0\\.0\\.1", # WHY: Exclude local loopback
   "\\.local",        # WHY: Exclude local network domains
+  "https://www.usgs.gov", # WHY: USGS often blocks automated requests, causing false positives
+  "https://www.sehn.org", # WHY: SEHN often blocks automated requests, causing false positives
 ]

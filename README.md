@@ -106,10 +106,11 @@ data from NASA and ESA, found that peak nitrogen dioxide concentrations
 in areas immediately surrounding the facility increased by 79% compared
 to pre-facility levels.
 Ozone readings in the Memphis metropolitan area have exceeded federal limits
-for at least two years, and the SELC petitioned the EPA to formally
-recognize the area's failure to meet national air quality standards.
-The American Lung Association gave both Shelby County, TN, and
-DeSoto County, MS an "F" for ozone pollution.
+for at least two years, and the Southern Environmental Law Center (SELC)
+petitioned the EPA to formally recognize the area's failure
+to meet national air quality standards.
+The American Lung Association gave both [Shelby County, TN](https://www.lung.org/research/sota/city-rankings/states/tennessee/shelby), and
+[DeSoto County, MS](https://www.lung.org/research/sota/city-rankings/states/mississippi/desoto) an "F" for ozone pollution.
 
 Sources:
 - [TIME Investigation](https://time.com/7308925/elon-musk-memphis-ai-data-center/),
@@ -223,7 +224,11 @@ to comparable local investment ([NCRC](https://ncrc.org/south-memphis-residents-
 
 - National Conference of State Legislatures (NCSL): <https://www.ncsl.org/>
 - Federal Energy Regulatory Commission (FERC): <https://www.ferc.gov/>
-- EPA Environmental Justice Screening Tool (EJScreen): <https://www.epa.gov/ejscreen> - standard reference for documenting baseline community burden before siting decisions
+- EPA Environmental Justice Screening Tool (EJScreen, archived): <https://19january2021snapshot.epa.gov/ejscreen/index.html> -
+  environmental justice screening and mapping tool;
+  removed from EPA website February 2025;
+  archived data downloads remain available
+- CDC/ATSDR Social Vulnerability Index (SVI): <https://www.atsdr.cdc.gov/placeandhealth/svi/index.html> - census-tract level vulnerability data for identifying overburdened communities;
 - EPA AirNow: <https://www.airnow.gov> - real-time and historical air quality index data by location
 
 ### Research and analysis
